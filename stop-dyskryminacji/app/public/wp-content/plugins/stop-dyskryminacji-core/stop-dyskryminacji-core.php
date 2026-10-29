@@ -3,7 +3,7 @@
  * Plugin Name:       STOP DYSKRYMINACJI — moduł podstawowy
  * Plugin URI:        https://stopdyskryminacji.pl
  * Description:       Funkcje platformy: typy treści, moduł zgłoszeniowy z szyfrowaniem, obowiązkowe oznakowanie FE/RP/UE/herb, zgoda na pliki cookie, GA4 z trzema zdarzeniami, narzędzia dla pracodawców.
- * Version:           1.0.22
+ * Version:           1.0.23
  * Requires at least: 6.6
  * Requires PHP:      7.4
  * Author:            Filip Kucia
@@ -29,7 +29,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SDC_VERSION', '1.0.22' );
+define( 'SDC_VERSION', '1.0.23' );
 define( 'SDC_FILE', __FILE__ );
 define( 'SDC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SDC_URL', plugin_dir_url( __FILE__ ) );

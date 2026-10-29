@@ -67,31 +67,7 @@ function sdc_help27_public_replacements() {
 }
 add_filter( 'render_block', function ( $html ) { return strtr( $html, sdc_help27_public_replacements() ); }, 80 );
 
-/** A configured method alone is not proof that this session passed its second factor. */
-function sdc_help27_verified_session( $user_id ) {
-	if ( ! $user_id || $user_id !== get_current_user_id() || ! class_exists( 'Two_Factor_Core' ) ) { return false; }
-	if ( ! Two_Factor_Core::is_user_using_two_factor( $user_id ) ) { return false; }
-	$session = Two_Factor_Core::get_current_user_session();
-	return ! empty( $session['two-factor-provider'] ) && ! empty( $session['two-factor-login'] ) && (int) $session['two-factor-login'] <= time();
-}
-// WordPress may map reading one's own private post to the generic "read" capability.
-// Gate the object capability too; never remove generic profile/account access.
-add_filter( 'map_meta_cap', function ( $caps, $cap, $user_id, $args ) {
-	if ( get_option( 'sdc_help27_require_2fa' ) && in_array( $cap, array( 'read_post', 'edit_post', 'delete_post', 'read_zgloszenie', 'edit_zgloszenie', 'delete_zgloszenie' ), true ) && ! empty( $args[0] ) && 'zgloszenie' === get_post_type( $args[0] ) && ! sdc_help27_verified_session( (int) $user_id ) ) { return array( 'do_not_allow' ); }
-	return $caps;
-}, 99, 4 );
-add_filter( 'user_has_cap', function ( $allcaps, $caps, $args, $user ) {
-	if ( ! get_option( 'sdc_help27_require_2fa' ) || sdc_help27_verified_session( (int) $user->ID ) ) { return $allcaps; }
-	foreach ( array_keys( $allcaps ) as $cap ) {
-		if ( preg_match( '/_zgloszeni(?:a|e)$/D', $cap ) ) { $allcaps[ $cap ] = false; }
-	}
-	return $allcaps;
-}, 99, 4 );
-add_action( 'admin_notices', function () {
-	$user = wp_get_current_user();
-	if ( ! get_option( 'sdc_help27_require_2fa' ) || sdc_help27_verified_session( (int) $user->ID ) || empty( $user->allcaps['edit_zgloszenia'] ) ) { return; }
-	echo '<div class="notice notice-warning"><p>Dostęp do zgłoszeń wymaga logowania z drugim składnikiem. Włącz bezpłatne Two Factor, skonfiguruj metodę w <a href="' . esc_url( admin_url( 'profile.php#two-factor-options' ) ) . '">swoim profilu</a>, zachowaj kody zapasowe i zaloguj się ponownie z kodem. Zwykłe logowanie do panelu i profil pozostają dostępne.</p></div>';
-} );
+/** No second-factor gate on cases: the project team withdrew that item on 29 October 2026. */
 
 /** Explicit, repeat-safe migration; it never decrypts a case or guesses a legacy contact date. */
 function sdc_apply_help27() {
@@ -108,7 +84,7 @@ function sdc_apply_help27() {
 		if ( ! current_user_can( 'edit_post', $post->ID ) ) { return new WP_Error( 'forbidden', 'Brak dostępu do dokumentu.' ); }
 		$backup['pages'][ $post->ID ] = $post->to_array(); $plan[ $post->ID ] = $content;
 	}
-	$options = array( 'sdc_notify_email' => 'info@proukraina.org', 'sdc_notify_email_secondary' => 'tetiana.wroblewska@proukraina.org', 'sdc_confirmation_reply_to' => 'tetiana.wroblewska@proukraina.org', 'sdc_contact_email' => 'tetiana.wroblewska@proukraina.org', 'sdc_contact_phone' => '+48 889 744 607', 'sdc_retention_days' => 90, 'sdc_privacy_clause' => $data['clause']['pl'], 'sdc_help27_require_2fa' => 1 );
+	$options = array( 'sdc_notify_email' => 'info@proukraina.org', 'sdc_notify_email_secondary' => 'tetiana.wroblewska@proukraina.org', 'sdc_confirmation_reply_to' => 'tetiana.wroblewska@proukraina.org', 'sdc_contact_email' => 'tetiana.wroblewska@proukraina.org', 'sdc_contact_phone' => '+48 889 744 607', 'sdc_retention_days' => 90, 'sdc_privacy_clause' => $data['clause']['pl'] );
 	foreach ( $options as $key => $value ) { $backup['options'][ $key ] = get_option( $key, null ); }
 	update_option( 'sdc_help27_before', $backup, false );
 	foreach ( $plan as $id => $content ) {
@@ -129,13 +105,13 @@ function sdc_apply_help27() {
 add_action( 'admin_menu', function () { add_management_page( 'Moduł pomocy — 27.10', 'Moduł pomocy — 27.10', 'manage_options', 'sdc-help-updates', 'sdc_help27_admin' ); } );
 function sdc_help27_admin() {
 	if ( ! current_user_can( 'manage_options' ) ) { return; }
-	echo '<div class="wrap"><h1>Moduł pomocy — zmiany z 27 października 2026</h1><p>Dwa adresy powiadomień: info@proukraina.org i tetiana.wroblewska@proukraina.org. Reply-To: tetiana.wroblewska@proukraina.org. Retencja zgłoszeń: 90 dni od ostatniego kontaktu, niezależnie od statusu. Potwierdzenia PL/EN/UA zawierają blok pilnej pomocy. Stopka wskazuje Tetianę Wróblewską.</p><p>Przed wdrożeniem zainstaluj i włącz bezpłatną wtyczkę Two Factor. Wdrożenie włącza wymóg drugiego składnika przy dostępie do zgłoszeń. Każdy operator sam konfiguruje metodę w profilu, zachowuje kody zapasowe i loguje się ponownie z kodem. Samo zainstalowanie wtyczki nie oznacza ukończonej konfiguracji kont.</p>';
+	echo '<div class="wrap"><h1>Moduł pomocy — zmiany z 27 października 2026</h1><p>Dwa adresy powiadomień: info@proukraina.org i tetiana.wroblewska@proukraina.org. Reply-To: tetiana.wroblewska@proukraina.org. Retencja zgłoszeń: 90 dni od ostatniego kontaktu, niezależnie od statusu. Potwierdzenia PL/EN/UA zawierają blok pilnej pomocy. Stopka wskazuje Tetianę Wróblewską.</p><p>Logowanie dwuskładnikowe nie jest wymagane do obsługi zgłoszeń (decyzja zespołu projektu z 29.10.2026).</p>';
 	$done = get_option( 'sdc_help27_done' );
-	if ( $done ) { echo '<p><strong>Zapisano wdrożenie: ' . esc_html( $done['date'] ) . '.</strong> Starsze sprawy bez potwierdzonej daty kontaktu w chwili wdrożenia: ' . (int) $done['legacy_dates_required'] . ' (liczba historyczna). Wpisz rzeczywiste daty w panelu zgłoszeń po zalogowaniu z kodem.</p>'; }
+	if ( $done ) { echo '<p><strong>Zapisano wdrożenie: ' . esc_html( $done['date'] ) . '.</strong> Starsze sprawy bez potwierdzonej daty kontaktu w chwili wdrożenia: ' . (int) $done['legacy_dates_required'] . ' (liczba historyczna). Wpisz rzeczywiste daty w panelu zgłoszeń.</p>'; }
 	else {
-		echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '"><input type="hidden" name="action" value="sdc_help27">'; wp_nonce_field( 'sdc_help27' ); submit_button( 'Wdroż poprawki i wymóg 2FA dla zgłoszeń' ); echo '</form>';
+		echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '"><input type="hidden" name="action" value="sdc_help27">'; wp_nonce_field( 'sdc_help27' ); submit_button( 'Wdróż poprawki modułu pomocy' ); echo '</form>';
 	}
-	echo '<p>Two Factor: <strong>' . ( class_exists( 'Two_Factor_Core' ) ? 'wtyczka aktywna' : 'wtyczka nieaktywna' ) . '</strong>. Bieżąca sesja z potwierdzonym drugim składnikiem: <strong>' . ( sdc_help27_verified_session( get_current_user_id() ) ? 'tak' : 'nie' ) . '</strong>.</p><p>Ostatni kontakt oznacza rzeczywistą wiadomość lub rozmowę. Zespół odnotowuje kontakt spoza formularza w panelu. Sam odczyt sprawy lub zmiana statusu nie przesuwa terminu. Dla starszych spraw nie zgadujemy dat. Usuwanie odbywa się podczas najbliższego uruchomienia zaplanowanego zadania retencji po upływie 90 dni; hosting musi uruchamiać WP-Cron.</p></div>';
+	echo '<p>Ostatni kontakt oznacza rzeczywistą wiadomość lub rozmowę. Zespół odnotowuje kontakt spoza formularza w panelu. Sam odczyt sprawy lub zmiana statusu nie przesuwa terminu. Dla starszych spraw nie zgadujemy dat. Usuwanie odbywa się podczas najbliższego uruchomienia zaplanowanego zadania retencji po upływie 90 dni; hosting musi uruchamiać WP-Cron.</p></div>';
 }
 add_action( 'admin_post_sdc_help27', function () {
 	if ( ! current_user_can( 'manage_options' ) ) { wp_die( 'Brak uprawnień.', '', array( 'response' => 403 ) ); }
