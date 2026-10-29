@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-26",
+  "assets": {
+    "P1_EPUB": {
+      "filename": "P1_Kodeks_Rownosci_i_Inkluzywnosci.epub",
+      "mime": "application/epub+zip",
+      "sha256": "8efe8d0d8914946683384aa03e992dbe980651b30db6ceb16aa4b37ae326b8fe",
+      "bytes": 458444
+    },
+    "P2_EPUB": {
+      "filename": "P2_Poradnik_osoby_doswiadczajace.epub",
+      "mime": "application/epub+zip",
+      "sha256": "41bac651c20a2bc62d808925c0432c6823a27d2654475837cb2af61faa2ed36a",
+      "bytes": 449134
+    },
+    "P3_EPUB": {
+      "filename": "P3_Poradnik_swiadkowie.epub",
+      "mime": "application/epub+zip",
+      "sha256": "9d7faa24d8d648f7f1746a0a93b13bf58346a1583796c95f941e631858ecfaaa",
+      "bytes": 421451
+    },
+    "P4_EPUB": {
+      "filename": "P4_Kompendium_pracodawcy.epub",
+      "mime": "application/epub+zip",
+      "sha256": "fd111620765dd2efef1acb6096c0a3b98cb12a76a1df4e472c37d48d10036381",
+      "bytes": 474553
+    }
+  }
+}

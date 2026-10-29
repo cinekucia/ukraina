@@ -1,0 +1,68 @@
+{
+  "pl": {
+    "source_path": "identyfikacja_wizualna/KOLOR_POZIOM/Zestawienie FE+RP+UE+HERB/Zestawienie FE+RP+UE+HERB.png",
+    "sha256": "a8ad061d30f742caec9b920410d98c4e577aeb57785337b988d3312521b72bc7",
+    "orig_w": 6946,
+    "orig_h": 710,
+    "original_file": "zestawienie-znakow-pl-original.png",
+    "derivatives": [
+      {
+        "w": 1800,
+        "h": 184,
+        "file": "zestawienie-znakow-pl-1800.png",
+        "kb": 82.2
+      },
+      {
+        "w": 1200,
+        "h": 123,
+        "file": "zestawienie-znakow-pl-1200.png",
+        "kb": 50.0
+      },
+      {
+        "w": 900,
+        "h": 92,
+        "file": "zestawienie-znakow-pl-900.png",
+        "kb": 33.8
+      },
+      {
+        "w": 640,
+        "h": 65,
+        "file": "zestawienie-znakow-pl-640.png",
+        "kb": 21.7
+      }
+    ]
+  },
+  "en": {
+    "source_path": "identyfikacja_wizualna/KOLOR_POZIOM/Zestawienie FE+RP+UE+HERB EN/Zestawienie FE+RP+UE+HERB_EN.png",
+    "sha256": "586fa86abd5508e6e6cf8cc892d20bd55d671cbf15c0326bff5548bb4586eb35",
+    "orig_w": 6118,
+    "orig_h": 710,
+    "original_file": "zestawienie-znakow-en-original.png",
+    "derivatives": [
+      {
+        "w": 1800,
+        "h": 209,
+        "file": "zestawienie-znakow-en-1800.png",
+        "kb": 78.5
+      },
+      {
+        "w": 1200,
+        "h": 139,
+        "file": "zestawienie-znakow-en-1200.png",
+        "kb": 48.3
+      },
+      {
+        "w": 900,
+        "h": 104,
+        "file": "zestawienie-znakow-en-900.png",
+        "kb": 33.1
+      },
+      {
+        "w": 640,
+        "h": 74,
+        "file": "zestawienie-znakow-en-640.png",
+        "kb": 21.1
+      }
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+<!-- wp:group {"tagName":"header","metadata":{"name":"Nagłówek serwisu"},"className":"sd-masthead","layout":{"type":"default"}} -->
+<header class="wp-block-group sd-masthead">
+	<!-- wp:template-part {"slug":"eu-bar","tagName":"div","area":"header"} /-->
+	<!-- wp:template-part {"slug":"header","tagName":"div","area":"header"} /-->
+</header>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"main","metadata":{"name":"Treść główna"},"anchor":"sd-main","className":"sd-section","layout":{"type":"constrained"}} -->
+<main id="sd-main" class="wp-block-group sd-section">
+
+	<!-- wp:group {"align":"wide","className":"sd-section__inner","layout":{"type":"default"}} -->
+	<div class="wp-block-group alignwide sd-section__inner">
+
+		<!-- wp:stopdysk/breadcrumbs /-->
+
+		<!-- wp:heading {"level":1} -->
+		<h1 class="wp-block-heading">Publikacje</h1>
+		<!-- /wp:heading -->
+
+		<!-- wp:paragraph {"className":"sd-lead"} -->
+		<p class="sd-lead">Kodeks Równości i Inkluzywności, poradniki dla osób doświadczających dyskryminacji i dla świadków oraz kompendium dobrych praktyk. Pliki do pobrania będą udostępniane po zatwierdzeniu materiałów do publikacji.</p>
+		<!-- /wp:paragraph -->
+
+		<!-- wp:stopdysk/publication-filters /-->
+
+		<!-- wp:query {"queryId":20,"query":{"perPage":12,"pages":0,"offset":0,"postType":"publikacja","order":"asc","orderBy":"menu_order","inherit":false},"layout":{"type":"default"}} -->
+		<div class="wp-block-query">
+			<!-- wp:post-template {"className":"sd-grid sd-grid--3","layout":{"type":"default"}} -->
+				<!-- wp:group {"className":"sd-card sd-card--pub","layout":{"type":"default"}} -->
+				<div class="wp-block-group sd-card sd-card--pub">
+					<!-- wp:post-featured-image {"isLink":true,"className":"sd-card__thumb"} /-->
+					<!-- wp:post-terms {"term":"typ_publikacji","className":"sd-eyebrow"} /-->
+					<!-- wp:post-title {"level":2,"isLink":true} /-->
+					<!-- wp:post-excerpt {"excerptLength":24,"showMoreOnNewLine":false} /-->
+					<!-- wp:stopdysk/publication-formats /-->
+				</div>
+				<!-- /wp:group -->
+			<!-- /wp:post-template -->
+
+			<!-- wp:query-pagination {"paginationArrow":"arrow","layout":{"type":"flex","justifyContent":"space-between"},"style":{"spacing":{"margin":{"top":"3rem"}}}} -->
+				<!-- wp:query-pagination-previous {"label":"Poprzednia strona"} /-->
+				<!-- wp:query-pagination-numbers /-->
+				<!-- wp:query-pagination-next {"label":"Następna strona"} /-->
+			<!-- /wp:query-pagination -->
+
+			<!-- wp:query-no-results -->
+				<!-- wp:paragraph --><p>Dla wybranych filtrów nie ma publikacji. <a href="/publikacje/">Wyczyść filtry</a>.</p><!-- /wp:paragraph -->
+			<!-- /wp:query-no-results -->
+		</div>
+		<!-- /wp:query -->
+
+	</div>
+	<!-- /wp:group -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"div","area":"footer"} /-->

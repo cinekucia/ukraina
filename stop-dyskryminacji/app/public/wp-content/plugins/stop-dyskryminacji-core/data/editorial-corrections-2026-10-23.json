@@ -1,0 +1,130 @@
+{
+  "id": "content-audit-2026-10-23",
+  "updated": "2026-10-23",
+  "entries": {
+    "A02": {
+      "fields": {
+        "content": [
+          {
+            "old": "Jeśli kandydatowi przysługuje żądanie nawiązania umowy o pracę, ma na nie 21 dni od zawiadomienia o odmowie przyjęcia do pracy (art. 264 § 3 KP).",
+            "new": "Żądanie nawiązania umowy o pracę (21 dni od zawiadomienia o odmowie przyjęcia do pracy, art. 264 § 3 KP) przysługuje tylko osobom, którym przepis szczególny daje prawo do zatrudnienia; kandydat odrzucony z naruszeniem zasady równego traktowania może dochodzić zadośćuczynienia lub odszkodowania (art. 18³ᵈ KP), a nie zatrudnienia.",
+            "count": 1
+          },
+          {
+            "old": "Jeśli chcesz domagać się nawiązania umowy o pracę, masz na to tylko 21 dni od zawiadomienia o odmowie przyjęcia do pracy (art. 264 § 3 KP).",
+            "new": "Żądanie nawiązania umowy o pracę (21 dni od zawiadomienia o odmowie przyjęcia do pracy, art. 264 § 3 KP) przysługuje tylko osobom, którym przepis szczególny daje prawo do zatrudnienia; kandydat odrzucony z naruszeniem zasady równego traktowania może dochodzić zadośćuczynienia lub odszkodowania (art. 18³ᵈ KP), a nie zatrudnienia.",
+            "count": 1
+          }
+        ]
+      },
+      "source_file": "A02_rekrutacja-bez-ryzyka_v2-0.md",
+      "source_sha256": "6195bd9e67c7f2b7a78bbdb2f92d858e03bb4075deac94f174461c6e41d52a0e"
+    },
+    "A05": {
+      "fields": {
+        "content": [
+          {
+            "old": "gdyby pracownik nie korzystał z urlopu (art. 186⁴ KP).",
+            "new": "gdyby pracownik nie korzystał z urlopu (art. 183 KP – po urlopie macierzyńskim, ojcowskim i rodzicielskim; art. 186⁴ KP – po urlopie wychowawczym).",
+            "count": 1
+          }
+        ]
+      },
+      "source_file": "A05_szklany-sufit-i-szklane-ruchome-schody_v2-0.md",
+      "source_sha256": "fd116902aed248dbee9ca1138cfaf762a03f66dd4039690bb192bc1d05d25f5a"
+    },
+    "A09": {
+      "fields": {
+        "title": [
+          {
+            "old": "Polityka antydyskryminacyjna w firmie do 20 osób: co musisz mieć od maja 2027 r., a co warto mieć wcześniej",
+            "new": "Polityka antydyskryminacyjna w małej firmie (od 10 pracowników): co musisz mieć od maja 2027 r., a co warto mieć wcześniej",
+            "count": 1
+          }
+        ],
+        "content": [
+          {
+            "old": "29 700 zł w 2027 r.",
+            "new": "w 2026 r. co najmniej 28 836 zł (6 × 4 806 zł), od 2027 r. co najmniej 29 700 zł",
+            "count": 1
+          }
+        ]
+      },
+      "source_file": "A09_polityka-antydyskryminacyjna-w-firmie-do-20-osob_v2-0.md",
+      "source_sha256": "8fe9219527ccb937e0df113d0717bf962253000e45fd76b6cf73ed8bc5da79d4"
+    },
+    "A10": {
+      "fields": {
+        "content": [
+          {
+            "old": "np. z uwzględnieniem podwyżek przyznanych w tym czasie (art. 186⁴ KP).",
+            "new": "np. z uwzględnieniem podwyżek przyznanych w tym czasie (art. 183 KP – po urlopie macierzyńskim, ojcowskim i rodzicielskim; art. 186⁴ KP – po urlopie wychowawczym).",
+            "count": 1
+          },
+          {
+            "old": "to jego prawo (art. 186⁴ KP).",
+            "new": "to jego prawo (art. 183 KP – po urlopie macierzyńskim, ojcowskim i rodzicielskim; art. 186⁴ KP – po urlopie wychowawczym).",
+            "count": 1
+          }
+        ]
+      },
+      "source_file": "A10_ciaza-rodzicielstwo-powrot-do-pracy_v2-0.md",
+      "source_sha256": "9952e27c6fe257d0c2ff7d265551fcb59bb973442ee207aacbc83942a2a87ab4"
+    },
+    "A11": {
+      "fields": {
+        "content": [
+          {
+            "old": "29 700 zł w 2027 r.",
+            "new": "w 2026 r. co najmniej 28 836 zł (6 × 4 806 zł), od 2027 r. co najmniej 29 700 zł",
+            "count": 1
+          }
+        ]
+      },
+      "source_file": "A11_mobbing-czy-dyskryminacja-czy-konflikt_v2-0.md",
+      "source_sha256": "d33576061cfe77f6318d3642768a0d12420e5a446bf8a2ed049ad09529e2ef6f"
+    },
+    "A12": {
+      "fields": {
+        "content": [
+          {
+            "old": "obowiązek zapewnienia personelowi kompetencji w zakresie AI (art. 4)",
+            "new": "obowiązek podejmowania działań wspierających kompetencje personelu w zakresie AI (art. 4, w brzmieniu po zmianie rozporządzeniem (UE) 2026/1744)",
+            "count": 1
+          },
+          {
+            "old": "Już dziś – od 2 lutego 2025 r. – trzeba zapewnić personelowi, który korzysta z systemów AI, odpowiednie kompetencje w zakresie AI (art. 4).",
+            "new": "Już dziś pracodawca korzystający z systemów AI powinien podejmować działania wspierające rozwój kompetencji personelu w zakresie AI (art. 4 AI Act; po Digital Omnibus nie jest to już obowiązek zapewnienia określonego poziomu kompetencji).",
+            "count": 1
+          },
+          {
+            "old": "Obowiązki pracodawcy według AI Act (art. 26) – od 2 grudnia 2027 r.",
+            "new": "Obowiązki pracodawcy według AI Act (art. 26) – od 2 grudnia 2027 r. dla systemów wysokiego ryzyka z załącznika III",
+            "count": 1
+          },
+          {
+            "old": "przeszkol ją – kompetencje w zakresie AI są obowiązkowe od 2 lutego 2025 r.",
+            "new": "podejmuj działania wspierające rozwój jej kompetencji w zakresie AI (art. 4 AI Act, w brzmieniu po zmianie rozporządzeniem (UE) 2026/1744).",
+            "count": 1
+          }
+        ],
+        "lead_html": [
+          {
+            "old": "Od 2 grudnia 2027 r. zaczną też obowiązywać unijne przepisy o systemach sztucznej inteligencji (AI) wysokiego ryzyka.",
+            "new": "Od 2 grudnia 2027 r. zaczną też obowiązywać unijne przepisy dla systemów sztucznej inteligencji (AI) wysokiego ryzyka z załącznika III.",
+            "count": 1
+          }
+        ],
+        "excerpt": [
+          {
+            "old": "Od 2 grudnia 2027 r. zaczną też obowiązywać unijne przepisy o systemach sztucznej inteligencji (AI) wysokiego ryzyka.",
+            "new": "Od 2 grudnia 2027 r. zaczną też obowiązywać unijne przepisy dla systemów sztucznej inteligencji (AI) wysokiego ryzyka z załącznika III.",
+            "count": 1
+          }
+        ]
+      },
+      "source_file": "A12_rekrutacja-algorytmem-ai-act_v2-0.md",
+      "source_sha256": "c971d7b5d71a8a5e21d1204da7a1eaad6645ce7639953397eae0b253a83527be"
+    }
+  }
+}

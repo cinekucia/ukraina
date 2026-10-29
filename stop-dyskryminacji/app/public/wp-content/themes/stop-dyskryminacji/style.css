@@ -1,0 +1,18 @@
+/*
+Theme Name: STOP DYSKRYMINACJI
+Theme URI: https://stopdyskryminacji.pl
+Author: Filip Kucia
+Description: Motyw blokowy (FSE) platformy „STOP DYSKRYMINACJI" — projekt nr FEWP.06.10-IP.01-0136/25, dofinansowany przez Unię Europejską ze środków EFS+ w ramach programu Fundusze Europejskie dla Wielkopolski 2021–2027. Zbudowany pod WCAG 2.1 AA, bez zewnętrznych zasobów i bez webfontów.
+Version: 1.1.4
+Requires at least: 6.6
+Tested up to: 7.1
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: stop-dyskryminacji
+Domain Path: /languages
+Tags: block-theme, accessibility-ready, full-site-editing, custom-colors, translation-ready
+*/
+
+/* Style motywu znajdują się w assets/css/main.css (kolejkowane w inc/assets.php).
+   Ten plik zawiera wyłącznie nagłówek motywu wymagany przez WordPress. */

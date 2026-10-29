@@ -1,0 +1,25 @@
+<!-- wp:group {"tagName":"header","metadata":{"name":"Nagłówek serwisu"},"className":"sd-masthead","layout":{"type":"default"}} -->
+<header class="wp-block-group sd-masthead">
+	<!-- wp:template-part {"slug":"eu-bar","tagName":"div","area":"header"} /-->
+	<!-- wp:template-part {"slug":"header","tagName":"div","area":"header"} /-->
+</header>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"main","metadata":{"name":"Treść główna"},"anchor":"sd-main","className":"sd-section","layout":{"type":"constrained"}} -->
+<main id="sd-main" class="wp-block-group sd-section">
+
+	<!-- wp:stopdysk/breadcrumbs /-->
+	<!-- wp:post-title {"level":1} /-->
+
+	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group alignwide">
+		<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:stopdysk/last-updated /-->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"div","area":"footer"} /-->

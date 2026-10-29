@@ -1,0 +1,75 @@
+<!-- wp:group {"tagName":"header","metadata":{"name":"Nagłówek serwisu"},"className":"sd-masthead","layout":{"type":"default"}} -->
+<header class="wp-block-group sd-masthead">
+	<!-- wp:template-part {"slug":"eu-bar","tagName":"div","area":"header"} /-->
+	<!-- wp:template-part {"slug":"header","tagName":"div","area":"header"} /-->
+</header>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"main","metadata":{"name":"Treść główna"},"anchor":"sd-main","className":"sd-section","layout":{"type":"constrained"}} -->
+<main id="sd-main" class="wp-block-group sd-section">
+
+	<!-- wp:stopdysk/breadcrumbs /-->
+
+	<!-- wp:group {"className":"sd-article__head","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group sd-article__head">
+		<!-- wp:post-terms {"term":"category","className":"sd-eyebrow","separator":" · "} /-->
+		<!-- wp:post-title {"level":1} /-->
+		<!-- wp:stopdysk/editorial-meta /-->
+		<!-- wp:post-excerpt {"className":"sd-lead","excerptLength":42,"showMoreOnNewLine":false} /-->
+
+		<!-- wp:group {"className":"sd-meta","layout":{"type":"flex","flexWrap":"wrap"}} -->
+		<div class="wp-block-group sd-meta">
+			<!-- wp:post-date {"format":"j F Y"} /-->
+			<!-- wp:stopdysk/reading-time /-->
+		</div>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:post-featured-image {"align":"wide","style":{"border":{"radius":"14px"}}} /-->
+
+	<!-- wp:html -->
+	<nav class="sd-toc" data-sd-toc=".sd-article__body" aria-label="Spis treści strony" hidden></nav>
+	<!-- /wp:html -->
+
+	<!-- wp:group {"className":"sd-prose sd-article__body","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group sd-prose sd-article__body">
+		<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className":"sd-article__foot","style":{"spacing":{"margin":{"top":"2.5rem"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group sd-article__foot" style="margin-top:2.5rem">
+		<!-- wp:post-terms {"term":"post_tag","prefix":"Tematy: "} /-->
+		<!-- wp:stopdysk/share /-->
+		<!-- wp:stopdysk/last-updated /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:pattern {"slug":"stop-dyskryminacji/cta-potrzebuje-pomocy"} /-->
+
+	<!-- wp:group {"className":"sd-section sd-section--tight","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group sd-section sd-section--tight">
+		<!-- wp:heading {"level":2} -->
+		<h2 class="wp-block-heading">Przeczytaj także</h2>
+		<!-- /wp:heading -->
+
+		<!-- wp:query {"queryId":11,"query":{"perPage":3,"pages":1,"offset":0,"postType":"post","order":"desc","orderBy":"date","exclude":[],"inherit":false},"align":"wide"} -->
+		<div class="wp-block-query alignwide">
+			<!-- wp:post-template {"className":"sd-grid sd-grid--3","layout":{"type":"default"}} -->
+				<!-- wp:group {"className":"sd-card","layout":{"type":"default"}} -->
+				<div class="wp-block-group sd-card">
+					<!-- wp:post-title {"level":3,"isLink":true} /-->
+					<!-- wp:post-excerpt {"excerptLength":18,"showMoreOnNewLine":false} /-->
+				</div>
+				<!-- /wp:group -->
+			<!-- /wp:post-template -->
+		</div>
+		<!-- /wp:query -->
+	</div>
+	<!-- /wp:group -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"div","area":"footer"} /-->

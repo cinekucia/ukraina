@@ -1,0 +1,73 @@
+# Kontrola motywu i wtyczki przy każdym wysłaniu do repozytorium.
+#
+# DLACZEGO BEZ WDROŻENIA
+# ----------------------
+# Serwis działa na hostingu nazwa.pl. Wtyczkę i motyw wgrywa się w panelu
+# WordPressa (Wtyczki → Dodaj nową → Wyślij wtyczkę na serwer) albo przez SFTP
+# — opis w README.md i DOKUMENTACJA-WDROZENIOWA.md. Ten przebieg niczego nie
+# wysyła na serwer; sprawdza tylko, czy kod nadaje się do wgrania.
+
+name: Kontrola kodu
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:      # pozwala uruchomić kontrolę ręcznie z zakładki Actions
+
+jobs:
+  kontrola:
+    name: Motyw i wtyczka
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pobranie repozytorium
+        uses: actions/checkout@v4
+
+      # Plik, który wywala białą stronę, lepiej zatrzymać tutaj niż na produkcji.
+      - name: Kontrola składni PHP
+        run: |
+          set -e
+          FOUND=$(find stop-dyskryminacji/app/public/wp-content/themes/stop-dyskryminacji \
+                       stop-dyskryminacji/app/public/wp-content/plugins/stop-dyskryminacji-core \
+                       -name '*.php' | wc -l)
+          echo "Plików PHP do sprawdzenia: $FOUND"
+          find stop-dyskryminacji/app/public/wp-content/themes/stop-dyskryminacji \
+               stop-dyskryminacji/app/public/wp-content/plugins/stop-dyskryminacji-core \
+               -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Kontrola poprawności theme.json
+        run: |
+          php -r '
+            $f = "stop-dyskryminacji/app/public/wp-content/themes/stop-dyskryminacji/theme.json";
+            json_decode(file_get_contents($f));
+            if (json_last_error() !== JSON_ERROR_NONE) {
+              fwrite(STDERR, "::error::theme.json zawiera blad: " . json_last_error_msg() . PHP_EOL);
+              exit(1);
+            }
+            echo "OK - theme.json poprawny." . PHP_EOL;
+          '
+
+      # Klucz szyfrowania nie może wyciec przez repozytorium — jest publiczne.
+      - name: Kontrola — brak klucza szyfrowania w kodzie
+        run: |
+          if grep -rn "SDC_ENCRYPTION_KEY'\s*,\s*'[A-Za-z0-9+/=]\{20,\}" \
+               stop-dyskryminacji/app/public/wp-content/themes stop-dyskryminacji/app/public/wp-content/plugins; then
+            echo "::error::W kodzie znaleziono zapisany klucz szyfrowania."
+            exit 1
+          fi
+          echo "OK — brak zapisanego klucza."
+
+      # Pliki oznakowania są warunkiem odbioru (Załącznik nr 10).
+      - name: Kontrola — komplet plików oznakowania
+        run: |
+          set -e
+          BRAND=stop-dyskryminacji/app/public/wp-content/plugins/stop-dyskryminacji-core/assets/brand
+          for f in zestawienie-znakow-pl-original.png zestawienie-znakow-pl-640.png \
+                   zestawienie-znakow-pl-900.png zestawienie-znakow-pl-1200.png \
+                   zestawienie-znakow-pl-1800.png zestawienie-znakow-en-900.png \
+                   og-image-pl.png og-image-en.png PROWENIENCJA.json; do
+            test -f "$BRAND/$f" || { echo "::error::Brak pliku oznakowania: $f"; exit 1; }
+          done
+          echo "OK — komplet plików oznakowania."

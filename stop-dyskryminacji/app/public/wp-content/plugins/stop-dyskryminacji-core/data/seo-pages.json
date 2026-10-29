@@ -1,0 +1,62 @@
+{
+  "/": {
+    "pl": ["Dyskryminacja w pracy – pomoc | STOP DYSKRYMINACJI", "Doświadczasz nierównego traktowania w pracy? Poznaj swoje prawa, pobierz poradniki i sprawdź, jak bezpłatnie zgłosić sprawę w Wielkopolsce."],
+    "en": ["Workplace discrimination – help | STOP DYSKRYMINACJI", "Experiencing unequal treatment at work? Learn about your rights, explore practical resources and get free support in Wielkopolska, Poland."],
+    "uk": ["Дискримінація на роботі – допомога | STOP DYSKRYMINACJI", "Зазнали нерівного ставлення на роботі? Дізнайтеся про свої права, перегляньте посібники та зверніться по безкоштовну підтримку у Великопольщі."]
+  },
+  "/potrzebuje-pomocy/": {
+    "pl": ["Zgłoś dyskryminację w pracy – bezpłatna pomoc", "Opisz swoją sytuację w pracy. Bezpłatne i poufne wsparcie w Wielkopolsce: nie musisz podawać nazwiska. Odpowiadamy w 5 dni roboczych."],
+    "en": ["Report workplace discrimination – free support", "Describe what happened at work. Free, confidential support in Wielkopolska. No surname required. We reply within five working days."],
+    "uk": ["Повідомте про дискримінацію на роботі – допомога", "Опишіть ситуацію на роботі. Безкоштовна конфіденційна підтримка у Великопольщі без зазначення прізвища. Відповідаємо протягом 5 робочих днів."]
+  },
+  "/dla-pracownika/": {
+    "pl": ["Dyskryminacja w pracy – prawa i pomoc dla pracownika", "Poznaj prawa pracownika dotyczące równego traktowania. Sprawdź, jak dokumentować zdarzenia, gdzie szukać pomocy i z jakich poradników skorzystać."],
+    "en": ["Discrimination at work – employee rights and support", "Understand your rights to equal treatment at work, how to document incidents and where to find support and practical guides."],
+    "uk": ["Дискримінація на роботі – права працівника та допомога", "Дізнайтеся про право на рівне ставлення, документування подій на роботі, доступні посібники та установи, до яких можна звернутися по допомогу."]
+  },
+  "/dla-pracodawcy/": {
+    "pl": ["Równe traktowanie w firmie – pracodawca i HR", "Narzędzia dla pracodawców i HR: samoocena firmy, polityka antydyskryminacyjna, Kodeks Równości, poradniki i dobre praktyki."],
+    "en": ["Equal treatment at work – resources for employers", "Resources for employers and HR: company self-assessment, equal treatment policies, the Equality Code and practical guides."],
+    "uk": ["Рівне ставлення в компанії – роботодавцям та HR", "Інструменти для роботодавців та HR: самооцінка компанії, антидискримінаційна політика, Кодекс рівності, посібники та належні практики."]
+  },
+  "/baza-wiedzy/": {
+    "pl": ["Dyskryminacja w zatrudnieniu – baza wiedzy i poradniki", "Artykuły, poradniki i narzędzia o dyskryminacji w zatrudnieniu. Wybierz materiały dla pracownika, świadka, pracodawcy lub organizacji."],
+    "en": ["Workplace discrimination – knowledge base and guides", "Explore practical resources about discrimination at work for employees, witnesses, employers and organisations. Polish PDFs are clearly labelled."],
+    "uk": ["Дискримінація у праці – база знань та посібники", "Статті, посібники й інструменти про дискримінацію у праці для працівників, свідків, роботодавців та організацій. PDF польською позначено окремо."]
+  },
+  "/aktualnosci/": {
+    "pl": ["Artykuły o dyskryminacji w pracy | STOP DYSKRYMINACJI", "Czytaj artykuły projektu: rekrutacja, mobbing, wynagrodzenia, rodzicielstwo i równe traktowanie. Pełne teksty oraz bezpłatne PDF-y do pobrania."],
+    "en": ["Articles and project news | STOP DYSKRYMINACJI", "Articles and updates from STOP DYSKRYMINACJI about equal treatment at work. Full expert articles and downloadable PDFs are available in Polish."],
+    "uk": ["Статті та новини проєкту | STOP DYSKRYMINACJI", "Статті й новини проєкту про рівне ставлення у праці. Повні експертні тексти та PDF для завантаження доступні польською мовою."]
+  },
+  "/publikacje/": {
+    "pl": ["Publikacje o równym traktowaniu – bezpłatne PDF-y", "Pobierz bezpłatnie Kodeks Równości, poradniki dla osób doświadczających dyskryminacji i świadków oraz kompendium dla pracodawców."],
+    "en": ["Equal treatment publications – free Polish PDFs", "Download the Equality Code, guides for people experiencing discrimination and witnesses, and a compendium for employers. PDFs are in Polish."],
+    "uk": ["Публікації про рівне ставлення – безкоштовні PDF", "Завантажте Кодекс рівності, посібники для людей, які зазнали дискримінації, та свідків, а також збірник для роботодавців. PDF польською мовою."]
+  },
+  "/czy-to-dyskryminacja/": {
+    "pl": ["Czy to dyskryminacja w pracy? Przykłady i dalsze kroki", "Sprawdź, jak rozpoznać nierówne traktowanie w pracy, jakie sytuacje mogą oznaczać dyskryminację i gdzie znaleźć informacje oraz wsparcie."],
+    "en": ["Is it workplace discrimination? Examples and next steps", "Learn to recognise unequal treatment at work, explore examples and find information and support to help decide your next steps."],
+    "uk": ["Чи це дискримінація на роботі? Приклади та наступні кроки", "Дізнайтеся, як розпізнати нерівне ставлення на роботі, які ситуації можуть бути дискримінацією та де знайти інформацію й підтримку."]
+  },
+  "/gdzie-szukac-pomocy/": {
+    "pl": ["Dyskryminacja w pracy – gdzie szukać pomocy w Wielkopolsce", "Sprawdź instytucje i miejsca wsparcia w Wielkopolsce. Znajdź informacje o pomocy w sprawach nierównego traktowania i zgłoszeniu swojej sytuacji."],
+    "en": ["Workplace discrimination – where to get help in Wielkopolska", "Find support services and institutions in Wielkopolska for concerns about unequal treatment at work, and learn how to report your situation."],
+    "uk": ["Дискримінація на роботі – допомога у Великопольщі", "Знайдіть установи й служби підтримки у Великопольщі з питань нерівного ставлення на роботі та дізнайтеся, як повідомити про свою ситуацію."]
+  },
+  "/dla-swiadka/": {
+    "pl": ["Świadek dyskryminacji w pracy – jak reagować i wspierać", "Widzisz nierówne traktowanie w pracy? Sprawdź materiały dla świadków: reagowanie na zdarzenie, dokumentowanie i wsparcie osoby pokrzywdzonej."],
+    "en": ["Witnessing workplace discrimination – how to respond", "Have you witnessed unequal treatment at work? Explore guidance on responding, documenting incidents and supporting the person affected."],
+    "uk": ["Свідок дискримінації на роботі – як реагувати", "Стали свідком нерівного ставлення на роботі? Перегляньте матеріали про реагування, документування подій і підтримку постраждалої людини."]
+  },
+  "/o-projekcie/": {
+    "pl": ["O projekcie STOP DYSKRYMINACJI – Wielkopolska", "Poznaj cele, działania i realizatorów projektu STOP DYSKRYMINACJI o równym traktowaniu w zatrudnieniu, współfinansowanego ze środków UE."],
+    "en": ["About STOP DYSKRYMINACJI – equal treatment in Wielkopolska", "Learn about the aims, activities and partners of STOP DYSKRYMINACJI, an EU co-funded project promoting equal treatment in employment."],
+    "uk": ["Про проєкт STOP DYSKRYMINACJI – Великопольща", "Дізнайтеся про цілі, діяльність і партнерів проєкту STOP DYSKRYMINACJI щодо рівного ставлення у праці, співфінансованого коштом ЄС."]
+  },
+  "/kontakt/": {
+    "pl": ["Kontakt z zespołem | STOP DYSKRYMINACJI", "Skontaktuj się z zespołem projektu STOP DYSKRYMINACJI: info@proukraina.org. Sprawę nierównego traktowania możesz opisać w formularzu pomocy."],
+    "en": ["Contact the project team | STOP DYSKRYMINACJI", "Contact the STOP DYSKRYMINACJI project team at info@proukraina.org. Use the support form to describe unequal treatment at work."],
+    "uk": ["Контакти команди проєкту | STOP DYSKRYMINACJI", "Зверніться до команди STOP DYSKRYMINACJI: info@proukraina.org. Опишіть нерівне ставлення на роботі через форму допомоги."]
+  }
+}

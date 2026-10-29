@@ -1,0 +1,358 @@
+/* ==========================================================================
+   Panel ułatwień dostępu (includes/a11y-toolbar.php, assets/js/a11y-toolbar.js)
+
+   Tryby działają przez klasy sd-a11y-* na <html>. Kontrasty podmieniają zmienne
+   palety (--wp--preset--color--*), więc obejmują cały motyw bez filtrów na całej
+   stronie — zestaw znaków FE zostaje pełnokolorowy i na białym tle (Zał. nr 10).
+   Panel ma własne kolory, żeby zawsze był czytelny.
+   ========================================================================== */
+
+/* ---------- Przycisk ---------- */
+
+.sd-a11y-toggle {
+	position: fixed;
+	z-index: 990;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 52px;
+	height: 52px;
+	padding: 0;
+	display: grid;
+	place-items: center;
+	background: #0b5563;
+	color: #fff;
+	border: 2px solid #fff;
+	border-right: 0;
+	border-radius: 12px 0 0 12px;
+	box-shadow: 0 2px 12px rgba(20, 24, 31, .28);
+	cursor: pointer;
+}
+.sd-a11y-toggle svg { width: 30px; height: 30px; }
+.sd-a11y-toggle--inline { position: static; transform: none; flex: 0 0 44px; width: 44px; height: 44px; border: 2px solid #fff; border-radius: 8px; box-shadow: none; }
+.sd-a11y-toggle:hover,
+.sd-a11y-toggle[aria-expanded="true"] { background: #083f49; }
+.sd-a11y-toggle:focus-visible { outline: 3px solid #14181f; outline-offset: 2px; box-shadow: 0 0 0 6px #fff; }
+
+/* ---------- Okno ---------- */
+
+.sd-a11y-panel {
+	position: fixed;
+	z-index: 991;
+	right: 60px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: min(23rem, calc(100vw - 76px));
+	max-height: min(88vh, 46rem);
+	overflow: auto;
+	overscroll-behavior: contain;
+	padding: 1rem 1rem 1.125rem;
+	background: #fff;
+	color: #14181f;
+	border: 2px solid #0b5563;
+	border-radius: 14px;
+	box-shadow: 0 14px 44px -12px rgba(20, 24, 31, .5);
+	font-family: inherit;
+	font-size: 1rem;
+	line-height: 1.4;
+	letter-spacing: normal;
+	word-spacing: normal;
+	text-align: left;
+}
+.sd-a11y-panel[hidden] { display: none; }
+/* Telefon: okno od dołu na całą szerokość. */
+@media (max-width: 32em) {
+	.sd-a11y-panel { left: 8px; right: 8px; top: auto; bottom: 8px; transform: none; width: auto; max-height: 82vh; }
+	/* Przycisk wystawał zza krawędzi otwartego okna; zamyka się je przyciskiem ×. */
+	.sd-a11y-toggle[aria-expanded="true"] { visibility: hidden; }
+}
+
+.sd-a11y-panel *, .sd-a11y-panel *::before, .sd-a11y-panel *::after { box-sizing: border-box; }
+.sd-a11y-panel :focus-visible { outline: 3px solid #14181f; outline-offset: 2px; box-shadow: 0 0 0 5px #fff; }
+
+.sd-a11y-panel__head { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .75rem; }
+.sd-a11y-panel h2 { margin: 0; font-size: 1.1875rem; font-weight: 800; line-height: 1.2; letter-spacing: 0; color: inherit; }
+.sd-a11y-panel h2:focus { outline: none; }
+.sd-a11y-panel h2:focus-visible { outline: 3px solid #14181f; outline-offset: 2px; }
+
+.sd-a11y-panel button {
+	font: inherit;
+	font-weight: 700;
+	cursor: pointer;
+	border-radius: 8px;
+	color: #0b5563;
+	background: #fff;
+	border: 2px solid #0b5563;
+	min-height: 44px;
+}
+.sd-a11y-panel button:disabled { opacity: .45; cursor: not-allowed; }
+
+.sd-a11y-close { width: 44px; height: 44px; display: grid; place-items: center; padding: 0; color: #14181f !important; border-color: #dcd6cb !important; }
+
+.sd-a11y-label { display: flex; align-items: center; gap: .375rem; font-size: .875rem; font-weight: 700; }
+
+.sd-a11y-size {
+	display: grid;
+	grid-template-columns: 1fr auto auto auto;
+	align-items: center;
+	gap: .5rem;
+	padding: .5rem .625rem;
+	margin-bottom: .75rem;
+	background: #e6f0f1;
+	border-radius: 10px;
+}
+.sd-a11y-size button { min-width: 48px; font-size: 1.0625rem; font-weight: 800; }
+.sd-a11y-size__value { min-width: 4.5ch; text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+.sd-a11y-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.sd-a11y-panel .sd-a11y-opt {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: .375rem;
+	min-height: 78px;
+	padding: .625rem .75rem;
+	text-align: left;
+	font-size: .875rem;
+	font-weight: 600;
+	line-height: 1.25;
+	color: #14181f;
+	border-color: #dcd6cb;
+}
+.sd-a11y-opt svg { color: #0b5563; flex: 0 0 auto; }
+.sd-a11y-panel .sd-a11y-opt:hover { border-color: #0b5563; }
+.sd-a11y-panel .sd-a11y-opt[aria-pressed="true"] { background: #0b5563; border-color: #0b5563; color: #fff; }
+.sd-a11y-opt[aria-pressed="true"] svg { color: #fff; }
+/* Stan „włączone" niesie też znak ✓, nie tylko kolor (WCAG 1.4.1). */
+.sd-a11y-opt[aria-pressed="true"]::after {
+	content: "";
+	position: absolute;
+	top: .5rem;
+	right: .75rem;
+	width: .45rem;
+	height: .85rem;
+	border: solid currentColor;
+	border-width: 0 3px 3px 0;
+	transform: rotate(45deg);
+}
+
+.sd-a11y-tts { margin-top: .875rem; padding-top: .875rem; border-top: 1px solid #dcd6cb; }
+.sd-a11y-tts__buttons { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+.sd-a11y-tts__buttons button { padding: .5rem .875rem; }
+.sd-a11y-panel .sd-a11y-tts__buttons [data-act="read"] { background: #0b5563; color: #fff; }
+.sd-a11y-hint { margin: .5rem 0 0; font-size: .8125rem; color: #4a5160; }
+
+.sd-a11y-foot { display: grid; gap: .625rem; margin-top: .875rem; padding-top: .875rem; border-top: 1px solid #dcd6cb; }
+.sd-a11y-panel .sd-a11y-reset { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .5rem .875rem; color: #9a3412; border-color: #9a3412; }
+.sd-a11y-panel__links { margin: 0; font-size: .875rem; }
+.sd-a11y-panel__links a { color: #0b5563; text-decoration: underline; text-underline-offset: 2px; }
+.sd-a11y-note { margin: 0; font-size: .8125rem; color: #4a5160; }
+
+/* ---------- Wielkość tekstu ---------- */
+
+html.sd-a11y-text-1 { font-size: 115%; }
+html.sd-a11y-text-2 { font-size: 130%; }
+html.sd-a11y-text-3 { font-size: 145%; }
+html.sd-a11y-text-4 { font-size: 160%; }
+/* Przy dużym tekście i rozstrzelonych literach długie wyrazy (tytuły, adresy e-mail)
+   mogą się złamać — lepsze niż przewijanie w bok (WCAG 1.4.10). „anywhere" zmniejsza też
+   minimalną szerokość treści, więc siatki i elementy flex nie wypychają się poza ekran. */
+html[class*="sd-a11y-text-"] .wp-site-blocks :is(h1, h2, h3, h4, h5, p, li, dt, dd, th, td, a, span, label, legend, strong, summary, button),
+html.sd-a11y-dys .wp-site-blocks :is(h1, h2, h3, h4, h5, p, li, dt, dd, th, td, a, span, label, legend, strong, summary, button) { overflow-wrap: anywhere; hyphens: auto; }
+html[class*="sd-a11y-text-"] .wp-site-blocks fieldset,
+html.sd-a11y-dys .wp-site-blocks fieldset { min-inline-size: 0; }
+
+/* ---------- Kontrast czarno-biały ---------- */
+
+html.sd-a11y-contrast-bw {
+	--wp--preset--color--base: #fff;
+	--wp--preset--color--surface: #fff;
+	--wp--preset--color--surface-strong: #fff;
+	--wp--preset--color--ink: #000;
+	--wp--preset--color--ink-muted: #000;
+	--wp--preset--color--border: #000;
+	--wp--preset--color--primary: #000;
+	--wp--preset--color--primary-dark: #000;
+	--wp--preset--color--accent: #000;
+	--wp--preset--color--accent-dark: #000;
+	--wp--preset--color--accent-soft: #fff;
+	--wp--preset--color--warm: #000;
+	--wp--preset--color--warm-soft: #fff;
+	--wp--preset--color--success: #000;
+	--wp--preset--color--success-soft: #fff;
+	--wp--preset--color--seria-ochra: #000;
+	--wp--preset--color--seria-zielony: #000;
+	--sd-focus: #000;
+}
+html.sd-a11y-contrast-bw body { background: #fff; color: #000; }
+html.sd-a11y-contrast-bw :is(.sd-card, .sd-choice, .sd-role, .sd-faq details, .sd-download, .sd-callout, .sd-toc, .sd-funding-box, .sd-option, .sd-institution, .sd-filters) { border: 2px solid #000; }
+html.sd-a11y-contrast-bw .wp-site-blocks a:not(.wp-element-button):not(.sd-btn) { text-decoration: underline; }
+html.sd-a11y-contrast-bw .sd-footer { color: #fff; }
+html.sd-a11y-contrast-bw .sd-a11y-toggle { background: #000; }
+
+/* ---------- Żółty na czarnym ---------- */
+
+html.sd-a11y-contrast-yb {
+	--wp--preset--color--base: #000;
+	--wp--preset--color--surface: #000;
+	--wp--preset--color--surface-strong: #1f1f1f;
+	--wp--preset--color--ink: #ff0;
+	--wp--preset--color--ink-muted: #fff;
+	--wp--preset--color--border: #ff0;
+	--wp--preset--color--primary: #ff0;
+	--wp--preset--color--primary-dark: #ff0;
+	--wp--preset--color--accent: #ff0;
+	--wp--preset--color--accent-dark: #000;
+	--wp--preset--color--accent-soft: #000;
+	--wp--preset--color--warm: #ff0;
+	--wp--preset--color--warm-soft: #000;
+	--wp--preset--color--success: #ff0;
+	--wp--preset--color--success-soft: #000;
+	--wp--preset--color--seria-ochra: #ff0;
+	--wp--preset--color--seria-zielony: #ff0;
+	--sd-focus: #fff;
+}
+html.sd-a11y-contrast-yb body { background: #000; color: #ff0; }
+html.sd-a11y-contrast-yb :is(.sd-card, .sd-choice, .sd-role, .sd-faq details, .sd-download, .sd-callout, .sd-toc, .sd-funding-box, .sd-option, .sd-institution, .sd-filters) { border: 2px solid #ff0; background: #000; }
+html.sd-a11y-contrast-yb .wp-site-blocks a:not(.wp-element-button):not(.sd-btn) { text-decoration: underline; }
+html.sd-a11y-contrast-yb :is(.sd-btn--primary, .sd-btn--primary:hover) { color: #000; }
+html.sd-a11y-contrast-yb .sd-choice:hover { background: #000; }
+html.sd-a11y-contrast-yb .sd-help-banner { background: #000; border: 2px solid #ff0; }
+html.sd-a11y-contrast-yb .sd-help-banner :is(h2, p) { color: #ff0 !important; }
+html.sd-a11y-contrast-yb .sd-help-banner .wp-block-button__link { background: #ff0 !important; border-color: #ff0 !important; color: #000 !important; }
+html.sd-a11y-contrast-yb .sd-footer { color: #fff; }
+html.sd-a11y-contrast-yb .wp-site-blocks :is(table, thead, tbody, tr, th, td) { background-color: #000 !important; color: #ff0 !important; border-color: #ff0 !important; }
+html.sd-a11y-contrast-yb :is(.sd-input, .sd-textarea, .sd-select)::placeholder { color: #ccc; }
+/* Pas znaków FE i ramki z zestawem znaków zostają białe — znaki w pełnym kolorze na białym
+   tle (Zał. nr 10 rozdz. 4). W pasku przywracamy ciemne kolory przełącznika języka. */
+html.sd-a11y-contrast-yb .sd-eu-bar {
+	--wp--preset--color--ink: #000;
+	--wp--preset--color--ink-muted: #000;
+	--wp--preset--color--surface: #fff;
+	--wp--preset--color--surface-strong: #e6e6e6;
+	--wp--preset--color--accent: #000;
+	--wp--preset--color--border: #000;
+	--sd-focus: #000;
+	color: #000;
+}
+html.sd-a11y-contrast-yb :is(.sd-eu-bar__img, .sd-footer__brand-img, .sd-lockup-inline__img) { background: #fff; }
+html.sd-a11y-contrast-yb .sd-a11y-toggle { background: #ff0; color: #000; border-color: #000; }
+
+/* Okno w trybie żółty na czarnym — bez jasnej plamy na ekranie. */
+html.sd-a11y-contrast-yb .sd-a11y-panel { background: #000; color: #ff0; border-color: #ff0; }
+html.sd-a11y-contrast-yb .sd-a11y-panel button,
+html.sd-a11y-contrast-yb .sd-a11y-panel .sd-a11y-opt,
+html.sd-a11y-contrast-yb .sd-a11y-panel .sd-a11y-reset,
+html.sd-a11y-contrast-yb .sd-a11y-close { background: #000 !important; color: #ff0 !important; border-color: #ff0 !important; }
+html.sd-a11y-contrast-yb .sd-a11y-panel .sd-a11y-opt[aria-pressed="true"],
+html.sd-a11y-contrast-yb .sd-a11y-panel .sd-a11y-tts__buttons [data-act="read"] { background: #ff0 !important; color: #000 !important; }
+html.sd-a11y-contrast-yb .sd-a11y-opt svg { color: currentColor; }
+html.sd-a11y-contrast-yb .sd-a11y-size { background: #1f1f1f; }
+html.sd-a11y-contrast-yb :is(.sd-a11y-hint, .sd-a11y-note) { color: #fff; }
+html.sd-a11y-contrast-yb .sd-a11y-panel__links a { color: #ff0; }
+html.sd-a11y-contrast-yb .sd-a11y-panel :focus-visible { outline-color: #fff; box-shadow: none; }
+
+/* ---------- Wyróżnione odnośniki ---------- */
+
+html.sd-a11y-links .wp-site-blocks a:not(.wp-element-button):not(.sd-btn) {
+	text-decoration: underline !important;
+	text-decoration-thickness: 2px !important;
+	text-underline-offset: 3px !important;
+	font-weight: 700 !important;
+}
+html.sd-a11y-links .wp-site-blocks :is(.wp-element-button, .sd-btn) { outline: 2px dashed currentColor; outline-offset: 3px; }
+
+/* ---------- Czytelna czcionka i odstępy (m.in. dla osób z dysleksją) ---------- */
+/* Wartości odstępów z WCAG 1.4.12 — układ był testowany właśnie z nimi. */
+
+html.sd-a11y-dys .wp-site-blocks,
+html.sd-a11y-dys .wp-site-blocks :not(svg):not(svg *):not(code):not(pre) {
+	font-family: Verdana, Tahoma, "Trebuchet MS", Arial, sans-serif !important;
+	font-style: normal !important;
+	letter-spacing: .12em !important;
+	word-spacing: .16em !important;
+}
+html.sd-a11y-dys .wp-site-blocks :is(p, li, dd, td, blockquote, figcaption) { line-height: 1.8 !important; text-align: left !important; }
+html.sd-a11y-dys .wp-site-blocks p { margin-bottom: 2em; }
+/* Logo zostaje logo: bez zmiany kroju i odstępów. */
+html.sd-a11y-dys .wp-site-blocks :is(.sd-brand, .sd-brand *) {
+	font-family: var(--wp--preset--font-family--sans) !important;
+	letter-spacing: .01em !important;
+	word-spacing: normal !important;
+	overflow-wrap: normal;
+}
+
+/* ---------- Tryb czytania ---------- */
+
+html.sd-a11y-reading main :is(p, li, dd, td) { font-size: 1.125em; line-height: 1.85; }
+html.sd-a11y-reading :is(.sd-card__thumb, .sd-share, .wp-block-post-featured-image:not(.sd-pub__cover), .sd-assurance) { display: none !important; }
+html.sd-a11y-reading .sd-hero .sd-section__inner::before { display: none; }
+html.sd-a11y-reading :is(.sd-hero, .sd-section--surface) { background: transparent; }
+html.sd-a11y-reading :is(.sd-grid, .sd-pub, .sd-footer__cols) { grid-template-columns: 1fr !important; }
+html.sd-a11y-reading .sd-pub__cover { max-width: 15rem; }
+
+/* ---------- Duży kursor ---------- */
+
+html.sd-a11y-cursor,
+html.sd-a11y-cursor * {
+	cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 24 24'%3E%3Cpath d='M4 2l15 9.5-6.6 1.4L9 20z' fill='%23000' stroke='%23fff' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") 7 4, auto !important;
+}
+html.sd-a11y-cursor :is(a, button, summary, label, select, [role="button"]),
+html.sd-a11y-cursor :is(a, button, summary, label, select, [role="button"]) * {
+	cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 24 24'%3E%3Cpath d='M9 11V4.5a1.5 1.5 0 0 1 3 0V10m0-.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0V16a6 6 0 0 1-6 6h-.5a6 6 0 0 1-4.6-2.2L4.6 16.6a1.6 1.6 0 0 1 2.5-2L9 16.5V11' fill='%23000' stroke='%23fff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 14 4, pointer !important;
+}
+
+/* ---------- Bez animacji ---------- */
+
+html.sd-a11y-motion *,
+html.sd-a11y-motion *::before,
+html.sd-a11y-motion *::after {
+	animation: none !important;
+	transition: none !important;
+	scroll-behavior: auto !important;
+}
+
+/* ---------- Linijka i maska do czytania ---------- */
+
+.sd-a11y-guide-line {
+	position: fixed;
+	z-index: 985;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 4px;
+	background: #c2410c;
+	box-shadow: 0 0 0 2px rgba(255, 255, 255, .9);
+	pointer-events: none;
+}
+.sd-a11y-mask-part {
+	position: fixed;
+	z-index: 984;
+	left: 0;
+	right: 0;
+	background: rgba(20, 24, 31, .6);
+	pointer-events: none;
+}
+.sd-a11y-mask-top { top: 0; }
+.sd-a11y-mask-bottom { bottom: 0; }
+
+/* ---------- Czytanie na głos: bieżący fragment ---------- */
+
+.sd-a11y-speaking {
+	outline: 3px solid #c2410c;
+	outline-offset: 3px;
+	background-color: rgba(245, 158, 107, .2);
+	border-radius: 2px;
+}
+html.sd-a11y-contrast-yb .sd-a11y-speaking { outline-color: #fff; background-color: #333; }
+
+/* ---------- Tryb wysokiego kontrastu systemu, druk ---------- */
+
+@media (forced-colors: active) {
+	.sd-a11y-toggle, .sd-a11y-panel, .sd-a11y-panel button { border: 2px solid CanvasText; }
+	.sd-a11y-guide-line { background: Highlight; }
+}
+@media print {
+	.sd-a11y-toggle, .sd-a11y-panel, .sd-a11y-guide-line, .sd-a11y-mask-part { display: none !important; }
+}

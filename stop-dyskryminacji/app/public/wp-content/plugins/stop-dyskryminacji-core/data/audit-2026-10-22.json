@@ -1,0 +1,102 @@
+{
+  "callouts": {
+    "/czy-to-dyskryminacja/": {
+      "level": 3,
+      "titles": [
+        "Dwie odpowiedzi „tak” wystarczą, żeby napisać",
+        "Two “yes” answers are enough to write to us",
+        "Двох відповідей «так» достатньо, щоб написати"
+      ]
+    },
+    "/dla-pracownika/": {
+      "level": 3,
+      "titles": [
+        "Terminy biegną szybko",
+        "Deadlines pass quickly",
+        "Строки спливають швидко"
+      ]
+    },
+    "/dla-swiadka/": {
+      "level": 2,
+      "titles": [
+        "Świadek też jest chroniony",
+        "Witnesses are protected too",
+        "Свідки також захищені"
+      ]
+    },
+    "/dla-pracodawcy/": {
+      "level": 2,
+      "titles": [
+        "Mikro i małe firmy mają pierwszeństwo",
+        "Micro and small businesses have priority",
+        "Мікро- та малі компанії мають пріоритет"
+      ]
+    },
+    "/sytuacje/nierowne-traktowanie/": {
+      "level": 3,
+      "titles": [
+        "Masz 21 dni",
+        "You have 21 days",
+        "У вас є 21 день"
+      ]
+    },
+    "/sytuacje/mobbing-i-molestowanie/": {
+      "level": 3,
+      "titles": [
+        "Uleganie albo odmowa nie mogą mieć konsekwencji",
+        "Accepting or rejecting the conduct must not have consequences",
+        "Згода або відмова не можуть мати негативних наслідків"
+      ]
+    },
+    "/warsztaty/": {
+      "level": 2,
+      "titles": [
+        "Zapisy",
+        "Registration",
+        "Реєстрація"
+      ]
+    },
+    "/wzory-dokumentow/": {
+      "level": 2,
+      "titles": [
+        "Sam dokument nie wystarczy",
+        "A document alone is not enough",
+        "Самого документа недостатньо"
+      ]
+    }
+  },
+  "replacements": {
+    "napisz przez <a href=\"/kontakt/\">formularz kontaktowy</a>": "skorzystaj z <a href=\"/kontakt/\">danych kontaktowych zespołu</a>",
+    "write to us using the <a href=\"/kontakt/\">contact form</a>": "use the <a href=\"/kontakt/\">project team’s contact details</a>",
+    "напишіть через <a href=\"/kontakt/\">контактна форма</a>": "скористайтеся <a href=\"/kontakt/\">контактними даними команди</a>",
+    "<a href=\"/kontakt/\">formularz kontaktowy</a>": "<a href=\"/kontakt/\">dane kontaktowe zespołu</a>",
+    "<a href=\"/kontakt/\">contact form</a>": "<a href=\"/kontakt/\">project team contact details</a>",
+    "<a href=\"/kontakt/\">контактна форма</a>": "<a href=\"/kontakt/\">контактні дані команди</a>",
+    "napisz przez <a href=\"/en/contact/\">formularz kontaktowy</a>": "skorzystaj z <a href=\"/en/contact/\">danych kontaktowych zespołu</a>",
+    "write to us using the <a href=\"/en/contact/\">contact form</a>": "use the <a href=\"/en/contact/\">project team’s contact details</a>",
+    "напишіть через <a href=\"/en/contact/\">контактна форма</a>": "скористайтеся <a href=\"/en/contact/\">контактними даними команди</a>",
+    "<a href=\"/en/contact/\">formularz kontaktowy</a>": "<a href=\"/en/contact/\">dane kontaktowe zespołu</a>",
+    "<a href=\"/en/contact/\">contact form</a>": "<a href=\"/en/contact/\">project team contact details</a>",
+    "<a href=\"/en/contact/\">контактна форма</a>": "<a href=\"/en/contact/\">контактні дані команди</a>",
+    "napisz przez <a href=\"/ua/kontakt/\">formularz kontaktowy</a>": "skorzystaj z <a href=\"/ua/kontakt/\">danych kontaktowych zespołu</a>",
+    "write to us using the <a href=\"/ua/kontakt/\">contact form</a>": "use the <a href=\"/ua/kontakt/\">project team’s contact details</a>",
+    "напишіть через <a href=\"/ua/kontakt/\">контактна форма</a>": "скористайтеся <a href=\"/ua/kontakt/\">контактними даними команди</a>",
+    "<a href=\"/ua/kontakt/\">formularz kontaktowy</a>": "<a href=\"/ua/kontakt/\">dane kontaktowe zespołu</a>",
+    "<a href=\"/ua/kontakt/\">contact form</a>": "<a href=\"/ua/kontakt/\">project team contact details</a>",
+    "<a href=\"/ua/kontakt/\">контактна форма</a>": "<a href=\"/ua/kontakt/\">контактні дані команди</a>",
+    "Cztery pola: imię, e-mail, telefon i opis. Imię może być dowolne, o nazwisko nie pytamy — odpowiadamy wyłącznie na podany adres e-mail.": "Podaj imię lub dowolne określenie, e-mail i opis sytuacji oraz zaznacz zgodę na przetworzenie zgłoszenia. Telefon i informacje o Twojej roli oraz przesłance są opcjonalne. Nie pytamy o nazwisko.",
+    "Four fields: first name, email, telephone and description. You can give any first name; we do not ask for a surname. We reply only to the email address you provide.": "Provide a first name or any chosen name, an email address and a description, and consent to processing the report. Your telephone number, role and the ground of unequal treatment are optional. We do not ask for your surname.",
+    "Чотири поля: ім’я, електронна пошта, телефон і опис. Ім’я може бути будь-яким, прізвище ми не запитуємо — відповідаємо лише на вказану адресу електронної пошти.": "Вкажіть ім’я або будь-яке звертання, електронну пошту й опис ситуації та надайте згоду на обробку звернення. Телефон, ваша роль та ознака нерівного ставлення необов’язкові. Прізвище ми не запитуємо.",
+    "Чотири поля: ім’я, електронна пошта, телефон і опис. Ім’я може бути будь-яким; прізвище ми не запитуємо. Відповідаємо лише на вказану адресу електронної пошти.": "Вкажіть ім’я або будь-яке звертання, електронну пошту й опис ситуації та надайте згоду на обробку звернення. Телефон, ваша роль та ознака нерівного ставлення необов’язкові. Прізвище ми не запитуємо."
+  },
+  "statements": {
+    "pl": "<!-- wp:paragraph --><p>Aktualizacja informacji o dostępności: 22 października 2026 r.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">Wyniki audytu scalonego i poprawki</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Audyt scalony z 22 października wskazał nieprawidłowy język opisów obrazów, brak nagłówków w ramkach oraz mylące nazwy linków kontaktowych. Poprawki tych elementów oraz obsługi błędów formularza zostały wdrożone i sprawdzone w testach technicznych. Błędy panelu, licznika samooceny, oznaczenia wymaganej zgody, wyszukiwania i filtrów z wcześniejszego raportu sprawdzono ponownie po poprzednim wdrożeniu.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Nie potwierdzamy pełnej zgodności całego serwisu z WCAG 2.1 AA. Odsłuch w rzeczywistych czytnikach ekranu, testy różnych przeglądarek i urządzeń, natywnego powiększenia oraz dostarczenia poczty na docelowym serwerze pozostają do odbioru. Pliki publikacji wymagają osobnej oceny przed udostępnieniem. Dane elektronicznego i telefonicznego kontaktu oraz dostępność siedziby wymagają potwierdzenia operatora.</p><!-- /wp:paragraph -->\n",
+    "en": "<!-- wp:paragraph --><p>Accessibility information updated: 22 October 2026.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">Consolidated audit findings and corrections</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>The consolidated audit of 22 October identified incorrect language information for image alternatives, missing headings in callout boxes and misleading contact link names. Corrections to these elements and form error handling have been implemented and checked in technical tests. Previously reported issues with the panel, assessment counter, required consent marker, search and filters were retested after the earlier release.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Full WCAG 2.1 AA conformance of the entire website has not been confirmed. Real screen reader tests, different browsers and devices, native zoom and delivery of email on the target server still require acceptance testing. Publication files require a separate assessment before release. Electronic and telephone contact details and physical accessibility information require confirmation by the operator.</p><!-- /wp:paragraph -->\n",
+    "uk": "<!-- wp:paragraph --><p>Інформацію про доступність оновлено 22 жовтня 2026 року.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">Висновки зведеного аудиту та виправлення</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Зведений аудит від 22 жовтня виявив неправильне позначення мови альтернативних описів зображень, відсутні заголовки в інформаційних рамках і оманливі назви контактних посилань. Виправлення цих елементів та обробки помилок форми впроваджено та перевірено технічними тестами. Раніше виявлені проблеми панелі, лічильника самооцінки, позначки обов’язкової згоди, пошуку та фільтрів повторно перевірено після попереднього оновлення.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Повну відповідність усього сайту WCAG 2.1 AA не підтверджено. Потрібні приймальні тести з реальними програмами зчитування з екрана, різними браузерами й пристроями, масштабуванням браузера та доставкою пошти на цільовому сервері. Файли публікацій потребують окремої оцінки перед оприлюдненням. Електронні й телефонні контактні дані та інформацію про архітектурну доступність має підтвердити оператор.</p><!-- /wp:paragraph -->\n"
+  },
+  "cookies": {
+    "pl": "<!-- wp:heading --><h2 class=\"wp-block-heading\">Odzyskiwanie formularza po błędzie</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Niezbędne ciasteczko sesyjne sdc_help_session pozwala odtworzyć błędnie wypełniony formularz wyłącznie w tej samej przeglądarce. Ma atrybuty HttpOnly, SameSite=Lax i Secure przy HTTPS. Robocze dane są zaszyfrowane na serwerze, wygasają po 30 minutach ; bieżąca kopia jest usuwana po poprawnym wysłaniu formularza. Sam adres strony nie daje dostępu do tych danych. Ciasteczko nie służy do analityki ani reklamy.</p><!-- /wp:paragraph -->\n",
+    "en": "<!-- wp:heading --><h2 class=\"wp-block-heading\">Recovering a form after an error</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>The essential session cookie sdc_help_session allows entries in a form with validation errors to be restored only in the same browser. It uses HttpOnly, SameSite=Lax and Secure on HTTPS. Draft entries are encrypted on the server, expire after 30 minutes ; the current draft is removed after successful submission. The page address alone does not provide access to them. This cookie is not used for analytics or advertising.</p><!-- /wp:paragraph -->\n",
+    "uk": "<!-- wp:heading --><h2 class=\"wp-block-heading\">Відновлення форми після помилки</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Необхідний сеансовий файл cookie sdc_help_session дає змогу відновити введені дані форми з помилками лише в тому самому браузері. Він має атрибути HttpOnly, SameSite=Lax і Secure при HTTPS. Чернеткові дані зашифровано на сервері; вони зберігаються до 30 хвилин ; поточна копія видаляється після успішного надсилання. Сама адреса сторінки не надає доступу до цих даних. Цей файл cookie не використовується для аналітики чи реклами.</p><!-- /wp:paragraph -->\n"
+  }
+}

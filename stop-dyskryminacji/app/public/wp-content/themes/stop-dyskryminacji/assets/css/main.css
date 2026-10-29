@@ -1,0 +1,1189 @@
+/* ==========================================================================
+   STOP DYSKRYMINACJI — arkusz motywu
+   --------------------------------------------------------------------------
+   Kolory, odstępy i skala typograficzna pochodzą z theme.json i są tu używane
+   wyłącznie przez zmienne --wp--preset--*. Nie zapisujemy wartości kolorów
+   na sztywno, żeby zmiana palety w edytorze stylów działała wszędzie.
+
+   Spis:
+     1. Podstawy i dostępność
+     2. Układ i rytm pionowy
+     3. Pasek znaków FE / RP / UE / herb  (obowiązkowy — Zał. nr 10 rozdz. 5)
+     4. Nagłówek i nawigacja
+     5. Przyciski i odnośniki
+     6. Karty, siatki, wybór ścieżki
+     7. Treść długa: artykuł, „Na tej stronie", kroki, FAQ
+     8. Moduł zgłoszeniowy i formularze
+     9. Publikacje i pobrania
+    10. Narzędzia: samoocena, nawigator instytucji, baza praktyk
+    11. Stopka
+    12. Zgoda na pliki cookie
+    13. Druk
+   ========================================================================== */
+
+/* ---------- 1. Podstawy i dostępność ------------------------------------- */
+
+/* Wysokość sygnetu w nagłówku: 0,6 wysokości zestawu znaków FE w pasku (sekcja 3).
+   Flaga UE zajmuje 0,662 wysokości zestawu, więc sygnet nigdy nie jest od niej
+   wyższy — wymóg z projektu znaku i z Załącznika nr 10. Te same reguły ma wtyczka. */
+:root { --sd-sign-h: calc(min(72px, calc(100vw / 11.6)) * .6); }
+@media (max-height: 30em) { :root { --sd-sign-h: calc(min(44px, calc(100vw / 11.6)) * .6); } }
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	overflow-wrap: break-word;
+}
+
+/* Płynne przewijanie tylko dla osób, które nie poprosiły o ograniczenie ruchu. */
+@media (prefers-reduced-motion: no-preference) {
+	html { scroll-behavior: smooth; }
+}
+
+/* Kotwice nie chowają się pod paskiem znaków przy przewijaniu do sekcji. */
+:target,
+[id] { scroll-margin-top: 1.5rem; }
+
+/* WCAG 2.4.7 — fokus zawsze widoczny, o kontraście ≥ 3:1 względem tła
+   i względem stanu bez fokusu. Podwójna obwódka działa i na jasnym, i na ciemnym. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+	outline: 3px solid var(--sd-focus, #b8500a);
+	outline-offset: 2px;
+	border-radius: 3px;
+	box-shadow: 0 0 0 5px rgba(255, 255, 255, .9);
+}
+
+/* Nie odbieramy obrysu fokusu, gdy przeglądarka nie wspiera :focus-visible. */
+:where(a, button, input, select, textarea, summary):focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* Treść tylko dla czytników ekranu. */
+.sd-sr-only {
+	position: absolute !important;
+	width: 1px; height: 1px;
+	padding: 0; margin: -1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* Odnośnik pomijający nawigację — niewidoczny do chwili otrzymania fokusu. */
+.sd-skip-link {
+	position: absolute;
+	top: -100%;
+	left: 1rem;
+	z-index: 999;
+	padding: .75rem 1.25rem;
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--base);
+	font-weight: 600;
+	text-decoration: none;
+	border-radius: 0 0 var(--sd-radius) var(--sd-radius);
+}
+.sd-skip-link:focus {
+	top: 0;
+	color: var(--wp--preset--color--base);
+}
+
+/* Cel dotykowy ≥ 24×24 px (WCAG 2.5.8), w praktyce celujemy w 44 px. */
+.sd-nav a,
+.sd-footer a,
+.sd-card__link { min-height: 44px; display: inline-flex; align-items: center; }
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation-duration: .01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: .01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* Tryb wysokiego kontrastu systemu Windows. */
+@media (forced-colors: active) {
+	.sd-card,
+	.sd-eu-bar,
+	.sd-choice { border: 1px solid CanvasText; }
+}
+
+/* ---------- 2. Układ i rytm pionowy -------------------------------------- */
+
+.sd-section { padding-block: var(--wp--preset--spacing--60); }
+/* Sekcje o pełnej szerokości mają własne tło i odstępy — bez białych szczelin
+   (odstęp bloków z theme.json) pod nagłówkiem i między kolorowymi sekcjami. */
+.wp-site-blocks > .sd-masthead + main { margin-block-start: 0; }
+main > .alignfull.sd-section { margin-block: 0; }
+.sd-section--tight { padding-block: var(--wp--preset--spacing--50); }
+.sd-section--surface { background: var(--wp--preset--color--surface); }
+
+/*
+   Długość wiersza.
+
+   Nie ograniczamy tu szerokości pojedynczych akapitów. Układ „constrained"
+   z rdzenia nadaje każdemu dziecku „margin-left/right: auto" z flagą
+   !important, więc element węższy od kontenera zostałby wyśrodkowany
+   i odsunąłby się od nagłówka nad nim. Za komfortową długość wiersza
+   odpowiada zatem sam contentSize z theme.json (42rem ≈ 75 znaków).
+
+   Wyjątkiem są sekcje o pełnej szerokości: tam treść siedzi w grupie
+   „sd-section__inner" o układzie przepływowym (bez automatycznych marginesów),
+   więc ograniczenie szerokości działa i wyrównuje do lewej.
+*/
+.sd-lead {
+	font-size: var(--wp--preset--font-size--large);
+	line-height: 1.55;
+	color: var(--wp--preset--color--ink-muted);
+}
+
+.sd-section__inner .sd-lead { max-width: 58ch; }
+.sd-section__inner > * + * { margin-top: var(--wp--preset--spacing--30); }
+
+.sd-eyebrow {
+	display: inline-block;
+	font-size: var(--wp--preset--font-size--x-small);
+	font-weight: 700;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--accent);
+	margin-bottom: .5rem;
+}
+
+/* Blok core/post-terms renderuje taksonomie jako odnośniki. Domyślne style
+   odnośnika (granat + podkreślenie) zabijają rolę nadkreślnika, który ma być
+   cichą etykietą, a nie drugim wezwaniem do kliknięcia. */
+.sd-eyebrow a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; min-height: 24px; padding-block: .125rem; }
+.sd-eyebrow a:hover,
+.sd-eyebrow a:focus-visible { text-decoration: underline; color: var(--wp--preset--color--primary-dark); }
+
+/* ---------- 3. Pasek znaków FE / RP / UE / herb --------------------------- */
+/*
+   Załącznik nr 10 rozdz. 5: zestaw znaków na samej górze KAŻDEJ podstrony,
+   widoczny bez przewijania. Umieszczenie wyłącznie w stopce nie spełnia
+   wymagania. Pasek jest zwykłym elementem treści (nie tłem CSS) — rozdz. 9.
+*/
+
+/*
+   Wymiary zestawu wynikają z pomiaru pliku, nie z oka:
+   - flaga UE zajmuje 66,2 % wysokości pliku, główne napisy 13,7 %,
+     najmniejszy napis (przy herbie) 7,2 %;
+   - plik ma własny, pusty margines równy 16,6 % wysokości z każdej strony.
+
+   Wolne pole wokół znaków ≥ wysokość flagi UE po każdej stronie (rozdz. 4)
+   = margines pliku (16,6 %) + odstęp dookoła pliku. Odstęp dookoła musi więc
+   wynosić co najmniej 49,6 % wysokości pliku — przyjmujemy 50 %.
+
+   Komputer: 72 px wysokości (704 px szerokości). Główne napisy mają wtedy
+   ok. 10 px — przy dawnych 46 px miały ok. 6 px, a napis przy herbie 3 px,
+   czyli były nieczytelne.
+
+   Wąski ekran: zestaw zmniejsza się proporcjonalnie tak, żeby razem
+   z wolnym polem zmieścił się w szerokości paska — bez przycinania i bez
+   przewijania (rozdz. 5: zmniejszenie dozwolone, przycięcie zabronione).
+   Szerokość plik + 2 × odstęp = h × (9,78 + 2 × 0,5) = 10,78 h, stąd h = szerokość / 11
+   (2 % zapasu na zaokrąglenie wysokości obrazu do pełnego piksela).
+*/
+.sd-eu-bar {
+	background: #ffffff;           /* rozdz. 4: preferowane tło białe */
+	border-bottom: 1px solid var(--wp--preset--color--border);
+	/* Szerokość paska jest podstawą wymiarów zestawu (jednostki cqi). */
+	container-type: inline-size;
+	/* Zapas: przeglądarki bez jednostek cqi liczą od szerokości okna
+	   razem z paskiem przewijania, stąd nieco mniejszy dzielnik. */
+	--sd-lockup-h: min(72px, calc(100vw / 11.6));
+}
+@supports (width: 1cqi) {
+	.sd-eu-bar__inner { --sd-lockup-h: min(72px, calc(100cqi / 11)); }
+}
+/* Niski ekran (telefon w poziomie, duże powiększenie): mniejszy zestaw,
+   żeby pasek nie zajmował połowy wysokości. Zmniejszenie jest dozwolone. */
+@media (max-height: 30em) {
+	.sd-eu-bar { --sd-lockup-h: min(44px, calc(100vw / 11.6)); }
+	@supports (width: 1cqi) {
+		.sd-eu-bar__inner { --sd-lockup-h: min(44px, calc(100cqi / 11)); }
+	}
+}
+
+.sd-eu-bar__inner {
+	--sd-lockup-clear: calc(var(--sd-lockup-h) * .5);
+	max-width: var(--wp--style--global--wide-size, 75rem);
+	margin-inline: auto;
+	/* Wolne pole nad i pod zestawem (do górnej krawędzi strony i do linii paska). */
+	padding-block: var(--sd-lockup-clear);
+	/* Po bokach: na szerokim ekranie wolne pole daje pusty margines strony poza
+	   kontenerem, więc zestaw wyrównuje się do nagłówka. Na wąskim — gdzie
+	   pasek sięga krawędzi ekranu — odstęp boczny to pełne wolne pole. */
+	padding-inline: var(--wp--preset--spacing--40);
+
+	/* Zestaw po lewej, przełącznik języka po prawej, rozdzielone co najmniej
+	   wolnym polem. Gdy przełącznik się nie mieści, schodzi pod zestaw —
+	   ściskanie znaków, żeby zmieścić obok nich cokolwiek, jest niedopuszczalne. */
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	column-gap: max(var(--sd-lockup-clear), 2.5rem);
+	row-gap: var(--sd-lockup-clear);
+}
+/* Poniżej 78em pasek sięga krawędzi ekranu (kontener ma 75rem + marginesy),
+   więc wolne pole po bokach musi zapewnić sam odstęp wewnętrzny. */
+@media (max-width: 77.99em) {
+	.sd-eu-bar__inner { padding-inline: var(--sd-lockup-clear); }
+}
+
+.sd-eu-bar__img {
+	display: block;
+	/* Wysokość sterowana, szerokość wynikowa — proporcje oryginału nienaruszone. */
+	height: var(--sd-lockup-h);
+	width: auto;
+	max-width: none;
+	flex: 0 0 auto;
+}
+
+/* ---------- 4. Nagłówek i nawigacja -------------------------------------- */
+
+.sd-header {
+	background: var(--wp--preset--color--base);
+	border-bottom: 1px solid var(--wp--preset--color--border);
+}
+
+.sd-header__inner {
+	max-width: var(--wp--style--global--wide-size, 75rem);
+	margin-inline: auto;
+	padding: .875rem var(--wp--preset--spacing--40);
+	display: flex;
+	align-items: center;
+	gap: .75rem .5rem;
+	flex-wrap: wrap;
+}
+.sd-header__inner > * { margin-block: 0; }
+/* Logo po lewej, menu i „Potrzebuję pomocy" po prawej (projekt: logo w wierszu nawigacji). */
+.sd-header__inner > .sd-nav { margin-left: auto; }
+/* Telefon: logo i przycisk menu w pierwszym wierszu, wezwanie na całą szerokość pod nimi. */
+@media (max-width: 33.99em) {
+	.sd-header__cta-wrap { flex: 1 0 100%; }
+	.sd-header__cta,
+	.sd-header__cta .wp-block-button__link { width: 100%; justify-content: center; }
+}
+
+/* Logo projektu „Dymek równości": sygnet + nazwa, „STOP" w kolorze marki.
+   Pole ochronne z projektu znaku (2 × grubość kreski) zapewnia odstęp nagłówka. */
+.sd-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: .5rem;
+	min-height: 44px;                  /* cel dotykowy, niezależnie od wysokości sygnetu */
+	text-decoration: none;
+	color: var(--wp--preset--color--ink);
+}
+.sd-brand__mark { display: block; height: var(--sd-sign-h); width: auto; flex: 0 0 auto; }
+.sd-brand__name {
+	font-weight: 800;
+	/* W px, jak zestaw znaków: powiększenie samego tekstu (panel ułatwień, ustawienia
+	   przeglądarki) nie może sprawić, że logo przerośnie flagę UE. Powiększenie strony
+	   (Ctrl +) skaluje oba proporcjonalnie. */
+	font-size: clamp(15px, 12.8px + .45vw, 17px);
+	letter-spacing: .01em;
+	line-height: 1.1;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+.sd-brand__stop { color: var(--wp--preset--color--accent); }
+.sd-brand:hover { color: var(--wp--preset--color--ink); }
+.sd-brand:hover .sd-brand__name { text-decoration: underline; text-underline-offset: 3px; }
+
+
+/* Wezwanie „Potrzebuję pomocy" w nagłówku jest mniejsze niż na stronie głównej —
+   ma być dostępne z każdej podstrony, ale nie konkurować z treścią. */
+.sd-header__cta-wrap { display: flex; }
+.sd-header__cta .wp-block-button__link {
+	padding: .5rem 1rem;
+	font-size: .875rem;
+	min-height: 40px;
+	display: inline-flex;
+	align-items: center;
+}
+
+.sd-nav { display: flex; align-items: center; gap: .25rem; flex-wrap: wrap; }
+.sd-nav .wp-block-navigation__container { gap: .25rem; }
+
+/* Nawigacja o stopień mniejsza od tekstu treści.
+   Siedem pozycji plus wezwanie do działania nie mieści się w jednej linii
+   w kontenerze 75rem przy rozmiarze podstawowym — a złamanie paska na dwie
+   linie psuje pierwsze wrażenie i spycha treść poniżej zgięcia strony. */
+.sd-nav a {
+	padding: .5rem .375rem;
+	border-radius: var(--sd-radius);
+	text-decoration: none;
+	font-weight: 500;
+	font-size: .875rem;
+	color: var(--wp--preset--color--ink);
+}
+.sd-nav a:hover { background: var(--wp--preset--color--surface); text-decoration: underline; }
+/* Translated labels need room for the same seven items and the help button. */
+html:lang(en) .sd-nav a,
+html:lang(uk) .sd-nav a { padding-inline: .375rem; }
+html:lang(uk) .sd-nav a { padding-inline: .25rem; }
+
+/* Treści eksperckie 2.0: semantyczne ramki, pułapki i przewijane tabele. */
+.sd-editorial-meta { color: #4A5160; font-size: .9375rem; line-height: 1.6; }
+.sd-editorial-box,
+.sd-prose .sd-editorial-box {
+	padding: 1.25rem 1.5rem;
+	margin: 1.5rem 0;
+	background: #F3F4F6;
+	border: 0;
+	border-left: 4px solid #D1D5DB;
+	color: #14181F;
+	font-style: normal;
+}
+.sd-editorial-box--employee,
+.sd-prose .sd-editorial-box--employee { background: #FDECEE; border-left-color: #C1121F; }
+.sd-editorial-box--employer,
+.sd-prose .sd-editorial-box--employer { background: #EEF0F3; border-left-color: #4A5160; }
+.sd-editorial-box > :first-child { margin-top: 0; }
+.sd-editorial-box > :last-child { margin-bottom: 0; }
+.sd-editorial-trap,
+.sd-prose .sd-editorial-trap {
+	background: #FDECEE;
+	border-left: 3px solid #C1121F;
+	color: #14181F;
+	padding: .75rem 1rem;
+	font-size: .9375rem;
+}
+.sd-editorial-table { overflow-x: auto; max-width: 100%; overscroll-behavior-inline: contain; }
+.sd-editorial-table table { width: 100%; min-width: 36rem; border-collapse: collapse; }
+.sd-editorial-table th { font-weight: 700; text-align: left; }
+.sd-editorial-table :is(th, td) { vertical-align: top; padding: .75rem; }
+.sd-editorial-table:focus-visible { outline: 3px solid #0B5563; outline-offset: 3px; }
+.sd-editorial-infographic img { display: block; max-width: 100%; height: auto; margin-inline: auto; }
+.sd-nav a[aria-current="page"] {
+	font-weight: 700;
+	box-shadow: inset 0 -3px 0 var(--wp--preset--color--accent);
+}
+
+/*
+   Rozsunięcie progu menu mobilnego.
+   Blok core/navigation przełącza się na przycisk „hamburger" dopiero poniżej
+   600 px. Logo, siedem pozycji i wezwanie do działania wymagają szerszego
+   progu, szczególnie w tłumaczeniach, więc
+   powtarzamy reguły rdzenia przy szerszym progu — zamiast menu zawiniętego
+   do drugiej linii. Selektory muszą odpowiadać tym z bloku, bo to one decydują
+   o widoczności kontenera.
+*/
+@media (max-width: 83.99em) {
+	.sd-nav .wp-block-navigation__responsive-container-open:not(.always-shown) { display: flex; }
+	/* Zamknięte menu chowamy bez względu na klasę „hidden-by-default" — WordPress 7
+	   nadaje ją tylko przy ustawieniu „zawsze", więc od 600 px widać było naraz
+	   przycisk menu i wszystkie pozycje. Otwarte (.is-menu-open) to nakładka rdzenia. */
+	.sd-nav .wp-block-navigation__responsive-container:not(.is-menu-open) { display: none; }
+}
+
+/* Przełącznik języka i prosty język — osobna grupa, mniejsza waga wizualna. */
+.sd-utility { display: flex; align-items: center; gap: .5rem; font-size: var(--wp--preset--font-size--small); }
+.sd-utility__sep { width: 1px; height: 20px; background: var(--wp--preset--color--border); }
+
+/* ---- Przełącznik języka ---- */
+
+.sd-lang-group {
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+	flex-wrap: wrap;
+}
+
+.sd-lang ul {
+	display: flex;
+	align-items: center;
+	gap: .125rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.sd-lang__item {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	/* Cel dotykowy 44 px także tu — dwuliterowa etykieta jest mała,
+	   a to jedno z częściej klikanych miejsc dla osób nieposługujących się
+	   biegle polskim (WCAG 2.5.8). */
+	min-width: 44px;
+	min-height: 44px;
+	padding: .25rem .5rem;
+	border-radius: var(--sd-radius);
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+	letter-spacing: .02em;
+	text-decoration: none;
+	color: var(--wp--preset--color--ink-muted);
+}
+.sd-lang__item:hover {
+	background: var(--wp--preset--color--surface);
+	color: var(--wp--preset--color--ink);
+	text-decoration: underline;
+}
+/* Bieżący język niesiony nie samym kolorem, ale też wagą i podkreśleniem —
+   informacja nie może zależeć wyłącznie od barwy (WCAG 1.4.1). */
+.sd-lang__item.is-current {
+	color: var(--wp--preset--color--ink);
+	background: var(--wp--preset--color--surface-strong);
+	font-weight: 700;
+	box-shadow: inset 0 -3px 0 var(--wp--preset--color--accent);
+}
+
+.sd-lang__easy {
+	display: inline-flex;
+	align-items: center;
+	min-height: 44px;
+	padding: .25rem .625rem;
+	border: 1px solid var(--wp--preset--color--border);
+	border-radius: var(--sd-radius);
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+	text-decoration: none;
+	color: var(--wp--preset--color--ink);
+	white-space: nowrap;
+}
+.sd-lang__easy:hover { background: var(--wp--preset--color--surface); color: var(--wp--preset--color--ink); }
+.sd-lang__easy.is-current { background: var(--wp--preset--color--surface-strong); border-color: var(--wp--preset--color--ink-muted); }
+
+.sd-lang-hint {
+	font-size: var(--wp--preset--font-size--x-small);
+	color: var(--wp--preset--color--ink-muted);
+	margin: 0;
+}
+
+/* Poniżej progu menu mobilnego przełącznik zostaje widoczny — jest potrzebny
+   zanim użytkownik w ogóle zrozumie treść strony, więc nie chowamy go
+   do menu pod przyciskiem. */
+@media (max-width: 47.99em) {
+	.sd-lang__easy { display: none; }   /* zostaje w stopce, w nagłówku brakuje miejsca */
+}
+
+/* ---------- 5. Przyciski i odnośniki ------------------------------------- */
+
+.sd-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: .5rem;
+	padding: .8125rem 1.5rem;
+	min-height: 48px;
+	border: 2px solid transparent;
+	border-radius: var(--sd-radius);
+	font-weight: 600;
+	font-size: var(--wp--preset--font-size--medium);
+	line-height: 1.3;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color .15s ease, border-color .15s ease;
+}
+
+.sd-btn--primary {
+	background: var(--wp--preset--color--primary);
+	border-color: var(--wp--preset--color--primary);
+	color: #fff;
+}
+.sd-btn--primary:hover {
+	background: var(--wp--preset--color--primary-dark);
+	border-color: var(--wp--preset--color--primary-dark);
+	color: #fff;
+}
+/* Ta sama klasa bywa na otoczce bloku „Przycisk" (div.wp-block-button) — tam kolor
+   niesie sam odnośnik; tło otoczki wystawało w rogach jasnego przycisku. */
+.wp-block-button.sd-btn--primary,
+.wp-block-button.sd-btn--primary:hover { background: none; }
+
+.sd-btn--secondary {
+	background: var(--wp--preset--color--base);
+	border-color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--accent);
+}
+.sd-btn--secondary:hover { background: var(--wp--preset--color--accent-soft); color: var(--wp--preset--color--accent-dark); }
+
+/* Przycisk „obrys" z edytora (np. „Sprawdź, czy to dyskryminacja") — w kolorze marki. */
+.wp-block-button.is-style-outline > .wp-block-button__link:not(.has-text-color) { color: var(--wp--preset--color--accent); }
+.wp-block-button.is-style-outline > .wp-block-button__link:not(.has-background):hover {
+	background: var(--wp--preset--color--accent-soft);
+	color: var(--wp--preset--color--accent-dark);
+	border-color: var(--wp--preset--color--accent-dark);
+}
+
+.sd-btn--ghost { background: transparent; border-color: var(--wp--preset--color--border); color: var(--wp--preset--color--ink); }
+.sd-btn--ghost:hover { background: var(--wp--preset--color--surface); }
+
+.sd-btn--lg { padding: 1.0625rem 2rem; font-size: var(--wp--preset--font-size--large); min-height: 56px; }
+.sd-btn--block { width: 100%; }
+
+.sd-btn svg { flex: 0 0 auto; }
+
+/* Odnośnik zewnętrzny.
+   Ikona jest wyłącznie dodatkiem — sam fakt otwarcia w nowej karcie niosą
+   ukryte słowa w treści odnośnika, bo informacja nie może płynąć samym
+   kształtem ani kolorem (WCAG 1.4.1). */
+.sd-link-external::after {
+	content: "";
+	display: inline-block;
+	width: .7em; height: .7em;
+	margin-inline-start: .3em;
+	background: currentColor;
+	--sd-icon-external: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3C/svg%3E");
+	-webkit-mask: var(--sd-icon-external) center / contain no-repeat;
+	        mask: var(--sd-icon-external) center / contain no-repeat;
+}
+
+/* ---------- 6. Karty, siatki, wybór ścieżki ------------------------------ */
+
+.sd-grid { display: grid; gap: var(--wp--preset--spacing--40); }
+
+/*
+   Grupa z klasą .sd-grid dostaje od WordPressa układ przepływowy, a ten daje
+   każdemu elementowi poza pierwszym margines górny. W siatce odstęp zapewnia
+   „gap", a margines przesuwał drugą kartę w dół — karty na stronie 404
+   stały krzywo.
+*/
+.sd-grid > * { margin-block: 0; }
+
+/*
+   Blok core/post-template renderuje listę <ul><li>, a nasza karta siedzi
+   dopiero wewnątrz <li>. Bez tych trzech reguł kafelki w jednym rzędzie mają
+   różną wysokość, bo rozciąga się element listy, a nie karta w środku.
+*/
+.wp-block-post-template.sd-grid { list-style: none; margin: 0; padding: 0; }
+.wp-block-post-template.sd-grid > li { display: flex; }
+.wp-block-post-template.sd-grid > li > .sd-card { flex: 1 1 auto; }
+
+/* Tytuł na karcie to nagłówek listy, a nie tytuł strony — rozmiar „display"
+   rozrywa kafelek i łamie wyrazy w środku. */
+.sd-card .wp-block-post-title {
+	font-size: var(--wp--preset--font-size--large);
+	margin: 0;
+}
+
+/* Nagłówki nie łamią wyrazów w środku. „overflow-wrap: break-word" z <body>
+   ratuje długie adresy URL w treści, ale w nagłówku daje „Inkluzyw / ności". */
+:is(h1, h2, h3, h4, h5, h6) { overflow-wrap: normal; word-break: normal; hyphens: manual; }
+.sd-grid--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+.sd-grid--3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+.sd-grid--4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 13.5rem), 1fr)); }
+
+.sd-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: .625rem;
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--border);
+	border-radius: var(--sd-radius-lg);
+	padding: var(--wp--preset--spacing--40);
+	transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.sd-card:hover { border-color: var(--wp--preset--color--accent); box-shadow: var(--sd-shadow); }
+
+/* Cała karta klikalna, ale w drzewie dostępności to zwykły odnośnik w nagłówku —
+   czytnik ekranu nie ogłasza duplikatów, a mysz ma duży cel. */
+.sd-card__link { text-decoration: none; color: inherit; }
+.sd-card__link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.sd-card__link:hover { text-decoration: underline; }
+
+/* Tytuł karty pochodzi z bloku core/post-title z włączonym odnośnikiem.
+   Odnośnik ma tam nieść kolor tekstu, a nie kolor linku — inaczej siatka kart
+   zamienia się w ścianę granatowych podkreśleń. */
+.sd-card :is(h2, h3, h4) a {
+	color: var(--wp--preset--color--ink);
+	text-decoration: none;
+}
+.sd-card :is(h2, h3, h4) a:hover,
+.sd-card :is(h2, h3, h4) a:focus-visible {
+	color: var(--wp--preset--color--primary-dark);
+	text-decoration: underline;
+}
+
+.sd-card h3 { margin: 0; font-size: var(--wp--preset--font-size--large); }
+.sd-card p { margin: 0; color: var(--wp--preset--color--ink-muted); font-size: var(--wp--preset--font-size--small); }
+.sd-card__meta {
+	margin-top: auto;
+	padding-top: .5rem;
+	font-size: var(--wp--preset--font-size--x-small);
+	color: var(--wp--preset--color--ink-muted);
+	display: flex; gap: .75rem; flex-wrap: wrap; align-items: center;
+}
+.sd-card__thumb {
+	margin: calc(var(--wp--preset--spacing--40) * -1) calc(var(--wp--preset--spacing--40) * -1) 0;
+	border-radius: var(--sd-radius-lg) var(--sd-radius-lg) 0 0;
+	overflow: hidden;
+	aspect-ratio: 16 / 9;
+	background: var(--wp--preset--color--surface);
+}
+.sd-card__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Układ „flow" WordPressa zeruje górny margines pierwszego dziecka regułą
+   o wyższej specyficzności — bez tego obraz nie dochodził do krawędzi karty. */
+.sd-card.sd-card > .sd-card__thumb:first-child { margin-top: calc(var(--wp--preset--spacing--40) * -1); }
+
+/*
+   Miniatura publikacji pokazuje wyłącznie pasek graficzny z górnej części
+   okładki, bez tytułu. Pełna okładka z tytułem zostaje na stronie publikacji,
+   gdzie czyta się jak okładka. Na karcie tytuł jest już w nagłówku obok,
+   więc powtórzenie go w obrazie tylko zaszumia listę.
+
+   Kadr od góry: obraz 620 × 877 przycięty do 16:9 od krawędzi górnej daje
+   dokładnie pole motywu (330 px) z niewielkim marginesem.
+*/
+.sd-card--pub .sd-card__thumb img { object-position: top; }
+/* Okładki w układzie z projektu mają tytuł w górnej części — na karcie widać
+   tylko pas z sygnetem, numerem i nadtytułem (620 × 200 px okładki), a tytuł
+   jest w nagłówku karty pod spodem. */
+.sd-card--pub .sd-card__thumb { aspect-ratio: 31 / 10; }
+
+/*
+   Wybór sytuacji — wzorzec przejęty z Worker.gov: użytkownik nie musi znać
+   przepisów, zaczyna od opisu własnej sytuacji. To ma być najłatwiejszy
+   element strony do kliknięcia, także dla osoby zestresowanej.
+*/
+.sd-choice {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: .875rem;
+	padding: 1.125rem 1.25rem;
+	min-height: 104px;
+	background: var(--wp--preset--color--base);
+	border: 2px solid var(--wp--preset--color--border);
+	border-radius: var(--sd-radius-lg);
+	text-decoration: none;
+	color: var(--wp--preset--color--ink);
+	font-weight: 600;
+	line-height: 1.35;
+	transition: border-color .15s ease, background-color .15s ease;
+}
+.sd-choice:hover { border-color: var(--wp--preset--color--accent); background: #fff; color: var(--wp--preset--color--ink); }
+.sd-choice__icon {
+	flex: 0 0 auto;
+	width: 40px; height: 40px;
+	display: grid; place-items: center;
+	border-radius: 10px;
+	background: var(--wp--preset--color--accent-soft);
+	color: var(--wp--preset--color--accent);
+}
+.sd-choice__text { display: block; }
+.sd-choice__hint {
+	display: block;
+	margin-top: .25rem;
+	font-weight: 400;
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--ink-muted);
+}
+
+/* Karty ról — „Jestem…". */
+.sd-role {
+	display: flex; flex-direction: column; gap: .5rem;
+	padding: var(--wp--preset--spacing--40);
+	border: 1px solid var(--wp--preset--color--border);
+	border-radius: var(--sd-radius-lg);
+	background: var(--wp--preset--color--base);
+	position: relative;
+}
+.sd-role__icon { width: 44px; height: 44px; color: var(--wp--preset--color--accent); }
+.sd-role h3 { margin: 0; font-size: var(--wp--preset--font-size--large); }
+.sd-role p { margin: 0; color: var(--wp--preset--color--ink-muted); font-size: var(--wp--preset--font-size--small); }
+
+/* Blok wyróżniony — „Potrzebuję pomocy". */
+.sd-help-banner {
+	background: var(--wp--preset--color--accent);
+	color: #fff;
+	border-radius: var(--sd-radius-lg);
+	padding: var(--wp--preset--spacing--50);
+	display: grid;
+	gap: var(--wp--preset--spacing--40);
+	align-items: center;
+}
+@media (min-width: 48em) {
+	.sd-help-banner { grid-template-columns: 1.4fr auto; }
+}
+.sd-help-banner h2 { margin: 0 0 .5rem; color: #fff; }
+.sd-help-banner p { margin: 0; color: var(--wp--preset--color--accent-soft); }
+.sd-help-banner .sd-btn--primary .wp-block-button__link,
+.sd-help-banner .sd-btn--primary.sd-btn { background: #fff; border-color: #fff; color: var(--wp--preset--color--accent-dark); }
+.sd-help-banner .sd-btn--primary .wp-block-button__link:hover,
+.sd-help-banner .sd-btn--primary.sd-btn:hover { background: var(--wp--preset--color--accent-soft); border-color: var(--wp--preset--color--accent-soft); color: var(--wp--preset--color--accent-dark); }
+
+/* Sygnały zaufania pod głównym wezwaniem do działania. */
+.sd-assurance {
+	display: flex; flex-wrap: wrap; gap: .5rem 1.25rem;
+	margin-top: 1rem;
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--ink-muted);
+	list-style: none; padding: 0;
+}
+.sd-assurance li { display: flex; align-items: center; gap: .4rem; }
+.sd-assurance svg { color: var(--wp--preset--color--success); flex: 0 0 auto; }
+
+/* ---------- 7. Treść długa ----------------------------------------------- */
+
+/* „Na tej stronie" — wzorzec z Acas: długi poradnik od razu pokazuje swoją mapę. */
+.sd-toc {
+	border: 1px solid var(--wp--preset--color--border);
+	border-left: 4px solid var(--wp--preset--color--accent);
+	border-radius: 0 var(--sd-radius) var(--sd-radius) 0;
+	background: var(--wp--preset--color--surface);
+	padding: 1.125rem 1.25rem;
+	margin-block: var(--wp--preset--spacing--40);
+}
+.sd-toc h2 { font-size: var(--wp--preset--font-size--medium); margin: 0 0 .625rem; text-transform: none; letter-spacing: 0; }
+.sd-toc ol { margin: 0; padding-left: 1.25rem; display: grid; gap: .375rem; }
+.sd-toc a { text-underline-offset: 2px; }
+
+/* Kroki — ponumerowana ścieżka „co się stanie po zgłoszeniu". */
+.sd-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--wp--preset--spacing--40); counter-reset: sd-step; }
+.sd-step { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; }
+.sd-step__num {
+	counter-increment: sd-step;
+	width: 2.5rem; height: 2.5rem;
+	display: grid; place-items: center;
+	border-radius: 50%;
+	background: var(--wp--preset--color--accent);
+	color: #fff;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+}
+.sd-step__num::before { content: counter(sd-step); }
+.sd-step h3 { margin: .25rem 0 .25rem; font-size: var(--wp--preset--font-size--large); }
+/* Kroki stoją w szerokiej kolumnie, ale ich opisy to tekst ciągły —
+   bez ograniczenia wiersza czytelnik gubi początek następnej linii. */
+.sd-step > div { max-width: var(--sd-maxline, 68ch); }
+.sd-step p { margin: 0; color: var(--wp--preset--color--ink-muted); }
+
+/* FAQ oparte na <details>/<summary> — działa bez JavaScriptu i jest dostępne. */
+.sd-faq { display: grid; gap: .625rem; }
+.sd-faq details {
+	border: 1px solid var(--wp--preset--color--border);
+	border-radius: var(--sd-radius);
+	background: var(--wp--preset--color--base);
+}
+.sd-faq summary {
+	cursor: pointer;
+	padding: 1rem 1.125rem;
+	font-weight: 600;
+	list-style: none;
+	display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+	min-height: 48px;
+}
+.sd-faq summary::-webkit-details-marker { display: none; }
+.sd-faq summary::after {
+	content: "";
+	flex: 0 0 auto;
+	width: .75rem; height: .75rem;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	transform: rotate(45deg);
+	transition: transform .15s ease;
+}
+.sd-faq details[open] summary::after { transform: rotate(-135deg); }
+.sd-faq details > *:not(summary) { padding: 0 1.125rem 1.125rem; margin: 0; }
+.sd-faq details + details { margin: 0; }
+
+/* Ramka ostrzeżenia / informacji — informacja nie jest niesiona samym kolorem. */
+.sd-callout {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: .875rem;
+	padding: 1.125rem 1.25rem;
+	border-radius: var(--sd-radius);
+	border: 1px solid var(--wp--preset--color--border);
+	background: var(--wp--preset--color--surface);
+	margin-block: var(--wp--preset--spacing--40);
+}
+.sd-callout__label { font-weight: 700; display: block; margin-bottom: .125rem; }
+.sd-callout p:last-child { margin-bottom: 0; }
+.sd-callout--text { display: block; }
+.sd-callout--text > .wp-block-heading { margin-top: 0; margin-bottom: .5rem; font-size: 1.125rem; line-height: 1.4; }
+.sd-callout--info    { border-left: 4px solid var(--wp--preset--color--accent);  background: var(--wp--preset--color--accent-soft); }
+.sd-callout--warning { border-left: 4px solid var(--wp--preset--color--primary); background: var(--wp--preset--color--warm-soft); }
+.sd-callout--info .sd-callout__label { color: var(--wp--preset--color--accent); }
+.sd-callout--warning .sd-callout__label { color: var(--wp--preset--color--primary-dark); }
+.sd-callout--success { border-left: 4px solid var(--wp--preset--color--success); background: var(--wp--preset--color--success-soft); }
+
+/*
+   Ramka informacji o dofinansowaniu na stronie „O projekcie".
+   Załącznik nr 10 rozdz. 6 wymaga, żeby zestaw znaków stał OBOK zdania
+   o dofinansowaniu, a rozdz. 9 — żeby to samo zdanie występowało też jako
+   tekst, nie tylko w grafice. Stąd układ pionowy: najpierw zdanie, pod nim
+   znaki na białym tle (rozdz. 4 preferuje tło białe).
+*/
+.sd-funding-box {
+	display: grid;
+	gap: 1rem;
+	padding: 1.25rem 1.5rem;
+	margin-block: var(--wp--preset--spacing--40);
+	background: var(--wp--preset--color--accent-soft);
+	border: 1px solid var(--wp--preset--color--border);
+	border-left: 4px solid var(--wp--preset--color--accent);
+	border-radius: 0 var(--sd-radius) var(--sd-radius) 0;
+}
+.sd-funding-box p { margin: 0; }
+
+/* Metadane artykułu. */
+.sd-meta {
+	display: flex; flex-wrap: wrap; gap: .5rem 1rem;
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--ink-muted);
+}
+.sd-tag {
+	display: inline-block;
+	padding: .1875rem .625rem;
+	border-radius: 999px;
+	background: var(--wp--preset--color--accent-soft);
+	font-size: var(--wp--preset--font-size--x-small);
+	font-weight: 600;
+	text-decoration: none;
+	color: var(--wp--preset--color--accent);
+}
+.sd-tag:hover { background: var(--wp--preset--color--accent); color: #fff; }
+/* Znacznik ciepły — np. „Nowe przepisy od 5.11.2026". */
+.sd-tag--warm { background: var(--wp--preset--color--warm-soft); color: var(--wp--preset--color--primary-dark); }
+.sd-tag--warm:hover { background: var(--wp--preset--color--primary-dark); color: #fff; }
+
+/* ---------- 8. Moduł zgłoszeniowy i formularze --------------------------- */
+
+.sd-form { display: grid; gap: var(--wp--preset--spacing--40); max-width: 40rem; }
+
+.sd-field { display: grid; gap: .375rem; }
+.sd-field > label,
+.sd-fieldset > legend {
+	font-weight: 600;
+	font-size: var(--wp--preset--font-size--medium);
+}
+.sd-field__hint {
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--ink-muted);
+}
+.sd-required { color: var(--wp--preset--color--primary-dark); font-weight: 700; }
+/* Objaśnienie gwiazdki nad formularzem (WCAG 3.3.2). */
+.sd-form__required-note {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--ink-muted);
+}
+
+.sd-input, .sd-textarea, .sd-select {
+	width: 100%;
+	padding: .75rem .875rem;
+	min-height: 48px;
+	font: inherit;
+	font-size: var(--wp--preset--font-size--medium);
+	color: var(--wp--preset--color--ink);
+	background: var(--wp--preset--color--base);
+	border: 2px solid var(--wp--preset--color--ink-muted);
+	border-radius: var(--sd-radius);
+}
+.sd-textarea { min-height: 9rem; resize: vertical; line-height: 1.6; }
+.sd-input::placeholder, .sd-textarea::placeholder { color: #6b7280; }
+
+.sd-field--error .sd-input,
+.sd-field--error .sd-textarea,
+.sd-field--error .sd-select { border-color: var(--wp--preset--color--primary-dark); }
+
+/* Komunikat błędu niesie treść, a nie tylko czerwoną ramkę (WCAG 1.4.1, 3.3.1). */
+.sd-field__error {
+	display: flex; align-items: flex-start; gap: .375rem;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+	color: var(--wp--preset--color--primary-dark);
+}
+
+.sd-fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: .625rem; }
+.sd-fieldset > legend { padding: 0; margin-bottom: .25rem; }
+
+/* Opcje wyboru jako duże, klikalne pola. */
+.sd-option {
+	display: flex; align-items: flex-start; gap: .75rem;
+	padding: .875rem 1rem;
+	border: 2px solid var(--wp--preset--color--border);
+	border-radius: var(--sd-radius);
+	cursor: pointer;
+	background: var(--wp--preset--color--base);
+}
+.sd-option:hover { border-color: var(--wp--preset--color--ink-muted); }
+.sd-option input { margin-top: .2rem; width: 1.25rem; height: 1.25rem; accent-color: var(--wp--preset--color--accent); flex: 0 0 auto; }
+.sd-option:has(input:checked) { border-color: var(--wp--preset--color--accent); background: var(--wp--preset--color--accent-soft); }
+.sd-option__title { font-weight: 600; display: block; }
+.sd-option__desc { font-size: var(--wp--preset--font-size--small); color: var(--wp--preset--color--ink-muted); }
+
+/* Podsumowanie błędów nad formularzem — pierwsza rzecz po nieudanej wysyłce. */
+.sd-error-summary {
+	border: 2px solid var(--wp--preset--color--primary-dark);
+	border-radius: var(--sd-radius);
+	padding: 1.125rem 1.25rem;
+	background: var(--wp--preset--color--warm-soft);
+}
+.sd-error-summary h2 { margin: 0 0 .5rem; font-size: var(--wp--preset--font-size--large); color: var(--wp--preset--color--primary-dark); }
+.sd-error-summary ul { margin: 0; padding-left: 1.25rem; }
+.sd-error-summary a { color: var(--wp--preset--color--primary-dark); font-weight: 600; }
+
+/* Klauzula RODO pod modułem zgłoszeniowym. */
+.sd-privacy-note {
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--ink-muted);
+	border-top: 1px solid var(--wp--preset--color--border);
+	padding-top: 1rem;
+}
+.sd-privacy-note details summary { font-weight: 600; cursor: pointer; color: var(--wp--preset--color--ink); }
+
+/* ---------- 9. Publikacje i pobrania ------------------------------------- */
+
+.sd-pub { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--wp--preset--spacing--50); }
+.sd-pub > * { min-width: 0; }
+@media (min-width: 48em) {
+	.sd-pub { grid-template-columns: 280px minmax(0, 1fr); align-items: start; }
+}
+.sd-pub__cover {
+	border: 1px solid var(--wp--preset--color--border);
+	border-radius: var(--sd-radius);
+	overflow: hidden;
+	background: var(--wp--preset--color--surface);
+	aspect-ratio: 1 / 1.414;
+}
+.sd-pub__cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.sd-downloads { display: grid; gap: .625rem; }
+.sd-download {
+	display: flex; align-items: center; gap: .875rem;
+	padding: .875rem 1rem;
+	border: 1px solid var(--wp--preset--color--border);
+	border-radius: var(--sd-radius);
+	text-decoration: none;
+	color: var(--wp--preset--color--ink);
+	background: var(--wp--preset--color--base);
+	min-height: 60px;
+}
+.sd-download:hover { border-color: var(--wp--preset--color--accent); background: var(--wp--preset--color--surface); color: var(--wp--preset--color--ink); }
+.sd-download__icon { flex: 0 0 auto; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 8px; background: var(--wp--preset--color--accent-soft); color: var(--wp--preset--color--accent); }
+
+/*
+   Kolor serii publikacji (projekt „logo i layout publikacji"): klasa sd-seria-*
+   z wtyczki na stronie publikacji (body) i na jej kartach (element listy).
+   Wszystkie kolory serii mają ≥ 5,5:1 na białym i na papierze — można nimi pisać.
+*/
+.sd-seria-morski  { --sd-series: var(--wp--preset--color--accent); }
+.sd-seria-ceglany { --sd-series: var(--wp--preset--color--primary-dark); }
+.sd-seria-ochra   { --sd-series: var(--wp--preset--color--seria-ochra); }
+.sd-seria-zielony { --sd-series: var(--wp--preset--color--seria-zielony); }
+
+.sd-card--pub .sd-card__thumb { border-bottom: 4px solid var(--sd-series, var(--wp--preset--color--accent)); }
+.sd-card--pub .sd-eyebrow,
+.single-publikacja .sd-pub__main .sd-eyebrow { color: var(--sd-series, var(--wp--preset--color--accent)); }
+.single-publikacja .sd-pub__cover { border-top: 6px solid var(--sd-series, var(--wp--preset--color--accent)); }
+.single-publikacja .sd-download__icon { color: var(--sd-series, var(--wp--preset--color--accent)); }
+.sd-download__label { font-weight: 600; display: block; }
+.sd-download__size { font-size: var(--wp--preset--font-size--small); color: var(--wp--preset--color--ink-muted); }
+
+.sd-share { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.sd-share__btn {
+	display: inline-flex; align-items: center; gap: .375rem;
+	padding: .5rem .75rem;
+	min-height: 44px;
+	border: 1px solid var(--wp--preset--color--border);
+	border-radius: var(--sd-radius);
+	background: var(--wp--preset--color--base);
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+	color: var(--wp--preset--color--ink);
+	text-decoration: none;
+	cursor: pointer;
+}
+.sd-share__btn:hover { background: var(--wp--preset--color--surface); }
+
+/* ---------- 10. Narzędzia ------------------------------------------------ */
+
+/* Samoocena pracodawcy. */
+.sd-quiz { display: grid; gap: var(--wp--preset--spacing--40); min-inline-size: 0; }
+.sd-quiz > *, .sd-quiz section { min-inline-size: 0; }
+.sd-quiz__progress { font-size: var(--wp--preset--font-size--small); color: var(--wp--preset--color--ink-muted); font-variant-numeric: tabular-nums; }
+.sd-quiz__bar { height: 8px; background: var(--wp--preset--color--surface-strong); border-radius: 999px; overflow: hidden; }
+.sd-quiz__bar span { display: block; height: 100%; background: var(--wp--preset--color--accent); transition: width .2s ease; }
+.sd-quiz__q { min-inline-size: 0; border: 1px solid var(--wp--preset--color--border); border-radius: var(--sd-radius-lg); padding: var(--wp--preset--spacing--40); }
+.sd-quiz__q legend { max-inline-size: 100%; overflow-wrap: anywhere; font-weight: 700; font-size: var(--wp--preset--font-size--large); }
+.sd-quiz .sd-option { min-inline-size: 0; overflow-wrap: anywhere; }
+#sd-quiz-errors[hidden], #sd-quiz-result[hidden] { display: none; }
+
+.sd-score { display: flex; align-items: baseline; gap: .5rem; }
+.sd-score__value { font-size: var(--wp--preset--font-size--display); font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
+.sd-score__max { color: var(--wp--preset--color--ink-muted); font-size: var(--wp--preset--font-size--large); }
+
+/* Filtry bazy praktyk i nawigatora instytucji. */
+.sd-filters {
+	display: flex; flex-wrap: wrap; gap: .75rem;
+	padding: 1rem;
+	background: var(--wp--preset--color--surface);
+	border-radius: var(--sd-radius-lg);
+	align-items: flex-end;
+}
+.sd-filters .sd-field { gap: .25rem; min-width: 12rem; flex: 1 1 12rem; }
+.sd-filters label { font-size: var(--wp--preset--font-size--small); font-weight: 600; }
+.sd-results-count { font-weight: 600; margin-block: var(--wp--preset--spacing--30); }
+
+.sd-institution { border: 1px solid var(--wp--preset--color--border); border-radius: var(--sd-radius-lg); padding: var(--wp--preset--spacing--40); display: grid; gap: .5rem; }
+.sd-institution :is(h2, h3) { margin: 0; font-size: var(--wp--preset--font-size--large); }
+.sd-institution dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: .25rem .75rem; font-size: var(--wp--preset--font-size--small); }
+.sd-institution dt { font-weight: 600; color: var(--wp--preset--color--ink-muted); }
+.sd-institution dd { margin: 0; }
+
+/* ---------- 11. Stopka --------------------------------------------------- */
+
+.sd-footer {
+	background: var(--wp--preset--color--accent-dark);
+	color: #d5e3e5;
+	margin-top: var(--wp--preset--spacing--70);
+}
+.sd-footer__inner {
+	max-width: var(--wp--style--global--wide-size, 75rem);
+	margin-inline: auto;
+	padding: var(--wp--preset--spacing--60) var(--wp--preset--spacing--40) var(--wp--preset--spacing--40);
+}
+.sd-footer h2, .sd-footer h3 { color: #fff; font-size: var(--wp--preset--font-size--medium); margin: 0 0 .75rem; }
+.sd-footer a { color: #fff; text-underline-offset: 3px; }
+.sd-footer a:hover { color: #fff; text-decoration-thickness: 2px; }
+.sd-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .375rem; }
+.sd-footer__cols { display: grid; gap: var(--wp--preset--spacing--50); }
+@media (min-width: 48em) { .sd-footer__cols { grid-template-columns: 1.5fr 1fr 1fr 1fr; } }
+/* Stopki UA i EN mają trzy kolumny — w tych językach nie ma ścieżki dla pracodawców. */
+@media (min-width: 48em) { .sd-footer__cols--3 { grid-template-columns: 1.5fr 1fr 1fr; } }
+
+/* Zestaw znaków powtórzony w stopce — Załącznik nr 1 wymaga go także tutaj,
+   niezależnie od obowiązkowego paska na górze strony. Tło białe (rozdz. 4). */
+.sd-footer__brand {
+	margin-top: var(--wp--preset--spacing--50);
+	padding: var(--wp--preset--spacing--40);
+	background: #fff;
+	border-radius: var(--sd-radius);
+}
+.sd-footer__brand img { display: block; max-width: 100%; height: auto; margin-inline: auto; }
+
+.sd-footer__legal {
+	margin-top: var(--wp--preset--spacing--40);
+	padding-top: var(--wp--preset--spacing--40);
+	border-top: 1px solid rgba(255, 255, 255, .2);
+	display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between;
+	font-size: var(--wp--preset--font-size--small);
+}
+
+/* Logotypy realizatorów — poza linią zestawienia i nie większe od flagi UE,
+   „mierząc wysokość ani szerokość" (Załącznik nr 10 rozdz. 3). Najmniejsza flaga
+   na stronie to ta w pasku u góry: 47,7 × 71,5 px na komputerze, 22,6 × 33,9 px
+   przy 375 px. Limity są poniżej obu. Sprawdza to tests/zalacznik10/check.py. */
+.sd-partners { display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center; list-style: none; margin: 0; padding: 0; }
+.sd-partners img { display: block; width: auto; height: auto; max-height: 44px; max-width: 66px; object-fit: contain; }
+@media (max-width: 47.99em) { .sd-partners img { max-height: 20px; max-width: 30px; } }
+
+/* ---------- 12. Zgoda na pliki cookie ------------------------------------ */
+/*
+   Kryterium odbioru: „okno zgody z równorzędnymi przyciskami; brak zapisu
+   plików analitycznych przed zgodą". Przyciski mają identyczną wagę wizualną —
+   ten sam rozmiar, ten sam kontur, żaden nie jest wyszarzony.
+*/
+.sd-consent {
+	position: fixed;
+	inset-inline: 0;
+	bottom: 0;
+	z-index: 1000;
+	background: var(--wp--preset--color--base);
+	border-top: 3px solid var(--wp--preset--color--accent);
+	box-shadow: 0 -8px 32px -12px rgba(20, 24, 31, .35);
+}
+.sd-consent[hidden] { display: none; }
+.sd-consent__inner {
+	max-width: var(--wp--style--global--wide-size, 75rem);
+	margin-inline: auto;
+	padding: var(--wp--preset--spacing--40);
+	display: grid;
+	gap: var(--wp--preset--spacing--30);
+}
+@media (min-width: 56em) {
+	.sd-consent__inner { grid-template-columns: 1fr auto; align-items: center; }
+}
+.sd-consent h2 { margin: 0 0 .375rem; font-size: var(--wp--preset--font-size--large); }
+.sd-consent p { margin: 0; font-size: var(--wp--preset--font-size--small); color: var(--wp--preset--color--ink-muted); }
+.sd-consent__actions { display: flex; gap: .625rem; flex-wrap: wrap; }
+.sd-consent__actions .sd-btn { flex: 1 1 auto; min-width: 11rem; }
+
+/* ---------- 12b. Drobne elementy szablonów -------------------------------- */
+
+/* Nagłówek strony głównej — szerszy niż kolumna tekstu ciągłego, ale wciąż
+   z ograniczoną długością wiersza, żeby zdanie dało się objąć wzrokiem. */
+.sd-hero {
+	padding-block: var(--wp--preset--spacing--70) var(--wp--preset--spacing--60);
+	background: var(--wp--preset--color--accent-soft);
+}
+/* Dwie kreski tej samej długości — motyw znaku „Dymek równości", element ozdobny
+   (bez dymku, więc to nie jest drugi egzemplarz logo obok zestawu znaków). */
+.sd-hero .sd-section__inner::before {
+	content: "";
+	display: block;
+	width: 3.5rem;
+	height: .5rem;
+	margin-bottom: 1.875rem;
+	border-radius: 999px;
+	background: var(--wp--preset--color--accent);
+	box-shadow: 0 .875rem 0 var(--wp--preset--color--warm);
+}
+.sd-hero h1 { max-width: 18ch; }
+.sd-hero .sd-lead { margin-top: 1rem; }
+
+.sd-breadcrumbs { margin-bottom: var(--wp--preset--spacing--40); font-size: var(--wp--preset--font-size--small); }
+.sd-breadcrumbs ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .25rem .5rem; }
+.sd-breadcrumbs li { display: flex; align-items: center; gap: .5rem; color: var(--wp--preset--color--ink-muted); }
+.sd-breadcrumbs__separator { color: var(--wp--preset--color--ink-muted); }
+.sd-breadcrumbs [aria-current="page"] { color: var(--wp--preset--color--ink); font-weight: 600; }
+
+.sd-article__head { margin-bottom: var(--wp--preset--spacing--40); }
+.sd-article__head .sd-lead { margin-top: .75rem; }
+.sd-article__foot { display: grid; gap: var(--wp--preset--spacing--30); }
+
+.sd-reading-time { display: inline-flex; align-items: center; gap: .3rem; }
+.sd-last-updated { color: var(--wp--preset--color--ink-muted); margin-top: var(--wp--preset--spacing--40); }
+
+.sd-pub__aside { display: grid; gap: var(--wp--preset--spacing--40); align-content: start; }
+.sd-pub__main > * + * { margin-top: var(--wp--preset--spacing--30); }
+
+/* W wąskiej kolumnie bocznej przyciski udostępniania układają się w pionie —
+   w poziomie rozpadały się na trzy nierówne rzędy. */
+.sd-pub__aside .sd-share { flex-direction: column; align-items: stretch; gap: .375rem; }
+.sd-pub__aside .sd-share__label { margin-bottom: .25rem; }
+.sd-pub__aside .sd-share__btn { justify-content: center; }
+
+.sd-footer__list a { display: inline-flex; align-items: center; min-height: 40px; }
+
+/* Kafelki wyboru sytuacji: cztery w rzędzie na dużym ekranie, dwa na tablecie,
+   jeden na telefonie. Etykiety są całymi zdaniami, więc potrzebują szerokości. */
+.sd-grid--4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 15.5rem), 1fr)); }
+
+/* ---------- 13. Druk ----------------------------------------------------- */
+
+@media print {
+	.sd-header, .sd-nav, .sd-consent, .sd-skip-link, .sd-share, .sd-help-banner { display: none !important; }
+	.sd-eu-bar, .sd-footer__brand { display: block !important; }   /* oznakowanie zostaje */
+	.sd-footer { background: #fff; color: #000; }
+	body { font-size: 11pt; }
+	a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; word-break: break-all; }
+	/* Print the completed result, retaining the required funding identification. */
+	body:has(#sd-quiz-result:not([hidden])) #sd-quiz,
+	body:has(#sd-quiz-result:not([hidden])) .sd-breadcrumbs,
+	body:has(#sd-quiz-result:not([hidden])) .sd-last-updated,
+	body:has(#sd-quiz-result:not([hidden])) .sd-footer,
+	body:has(#sd-quiz-result:not([hidden])) #wpadminbar,
+	body:has(#sd-quiz-result:not([hidden])) #sd-quiz-result .sd-btn { display: none !important; }
+	body:has(#sd-quiz-result:not([hidden])) #sd-quiz-result { display: block; border: 0; background: #fff; color: #000; }
+	#sd-quiz-result .sd-sr-only { position: static; width: auto; height: auto; clip: auto; clip-path: none; overflow: visible; white-space: normal; }
+}
+
+/* Audit 22.10: native controls follow the surrounding text settings. */
+button, input, select, textarea { font-family: inherit; }

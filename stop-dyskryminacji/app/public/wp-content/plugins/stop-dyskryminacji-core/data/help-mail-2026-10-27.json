@@ -1,0 +1,26 @@
+{
+  "pl": {
+    "subject": "Potwierdzenie przyjęcia zgłoszenia %s",
+    "greeting_named": "Dzień dobry, %s.",
+    "receipt": "Przyjęliśmy Twoje zgłoszenie. Jego treść została zaszyfrowana i jest dostępna wyłącznie dla upoważnionych osób z zespołu projektu.",
+    "reference": "Sygnatura sprawy: %s",
+    "response": "Odpowiemy w ciągu %d dni roboczych.",
+    "funding": "Projekt „STOP DYSKRYMINACJI” nr FEWP.06.10-IP.01-0136/25 jest dofinansowany przez Unię Europejską ze środków Europejskiego Funduszu Społecznego Plus w ramach programu Fundusze Europejskie dla Wielkopolski 2021–2027."
+  },
+  "en": {
+    "subject": "Confirmation of report %s",
+    "greeting_named": "Hello, %s.",
+    "receipt": "We have received your report. Its content has been encrypted and is accessible only to authorised members of the project team.",
+    "reference": "Case reference: %s",
+    "response": "We will reply within %d working days.",
+    "funding": "The “STOP DYSKRYMINACJI” project no. FEWP.06.10-IP.01-0136/25 is co-funded by the European Union from the European Social Fund Plus under the European Funds for Wielkopolska 2021–2027 programme."
+  },
+  "uk": {
+    "subject": "Підтвердження прийняття звернення %s",
+    "greeting_named": "Добрий день, %s.",
+    "receipt": "Ми прийняли ваше звернення. Його зміст зашифровано, доступ мають лише уповноважені особи з команди проєкту.",
+    "reference": "Номер справи: %s",
+    "response": "Відповімо протягом %d робочих днів.",
+    "funding": "Проєкт «STOP DYSKRYMINACJI» № FEWP.06.10-IP.01-0136/25 співфінансується Європейським Союзом з коштів Європейського соціального фонду Плюс у межах програми «Європейські фонди для Великопольщі 2021–2027»."
+  }
+}

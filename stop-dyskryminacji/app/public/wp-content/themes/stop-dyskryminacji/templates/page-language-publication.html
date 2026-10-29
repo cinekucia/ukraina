@@ -1,0 +1,55 @@
+<!-- wp:group {"tagName":"header","metadata":{"name":"Nagłówek serwisu"},"className":"sd-masthead","layout":{"type":"default"}} -->
+<header class="wp-block-group sd-masthead">
+	<!-- wp:template-part {"slug":"eu-bar","tagName":"div","area":"header"} /-->
+	<!-- wp:template-part {"slug":"header","tagName":"div","area":"header"} /-->
+</header>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"main","metadata":{"name":"Treść główna"},"anchor":"sd-main","className":"sd-section","layout":{"type":"constrained"}} -->
+<main id="sd-main" class="wp-block-group sd-section">
+
+	<!-- wp:stopdysk/breadcrumbs /-->
+
+	<!-- wp:group {"className":"sd-pub","align":"wide","layout":{"type":"default"}} -->
+	<div class="wp-block-group sd-pub alignwide">
+
+		<!-- wp:group {"className":"sd-pub__aside","layout":{"type":"default"}} -->
+		<div class="wp-block-group sd-pub__aside">
+			<!-- wp:post-featured-image {"className":"sd-pub__cover"} /-->
+			<!-- wp:stopdysk/publication-downloads /-->
+			<!-- wp:stopdysk/share /-->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"className":"sd-pub__main","layout":{"type":"default"}} -->
+		<div class="wp-block-group sd-pub__main">
+			<!-- wp:post-terms {"term":"typ_publikacji","className":"sd-eyebrow","separator":" · "} /-->
+			<!-- wp:post-title {"level":1} /-->
+			<!-- wp:stopdysk/editorial-meta /-->
+			<!-- wp:post-excerpt {"className":"sd-lead","excerptLength":45,"showMoreOnNewLine":false} /-->
+
+			<!-- wp:group {"className":"sd-meta","layout":{"type":"flex","flexWrap":"wrap"}} -->
+			<div class="wp-block-group sd-meta">
+				<!-- wp:post-date {"format":"j F Y","displayType":"modified","prefix":"Aktualizacja: "} /-->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"sd-prose sd-article__body","layout":{"type":"default"}} -->
+			<div class="wp-block-group sd-prose sd-article__body">
+				<!-- wp:post-content /-->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:post-terms {"term":"przeslanka","prefix":"Przesłanki: "} /-->
+		</div>
+		<!-- /wp:group -->
+
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:pattern {"slug":"stop-dyskryminacji/cta-potrzebuje-pomocy"} /-->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"div","area":"footer"} /-->

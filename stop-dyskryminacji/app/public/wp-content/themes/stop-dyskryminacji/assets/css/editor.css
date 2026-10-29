@@ -1,0 +1,34 @@
+/* ==========================================================================
+   Poprawki wyłącznie dla edytora bloków.
+   main.css jest wczytywany w edytorze osobno (add_editor_style w inc/setup.php),
+   więc tutaj są tylko rzeczy, które w edytorze zachowują się inaczej niż na froncie.
+   ========================================================================== */
+
+/* Pasek znaków w edytorze miejsc — pokazany na białym tle, żeby redaktor
+   widział go tak samo jak użytkownik i nie próbował go usunąć. */
+.editor-styles-wrapper .sd-eu-bar { background: #fff; }
+
+/* Elementy pozycjonowane fixed rozjeżdżają kanwę edytora. */
+.editor-styles-wrapper .sd-consent { position: static; box-shadow: none; }
+
+/* Odnośnik pomijający nawigację nie ma sensu w edytorze. */
+.editor-styles-wrapper .sd-skip-link { display: none; }
+
+/* Karta z „stretched link" w edytorze przykrywałaby uchwyty bloków. */
+.editor-styles-wrapper .sd-card__link::after { display: none; }
+
+/* Czytelna szerokość kolumny tekstu również podczas edycji. */
+.editor-styles-wrapper .sd-prose > p { max-width: var(--sd-maxline, 68ch); }
+
+/* Podpowiedź dla redaktora przy blokach, których nie wolno usuwać. */
+.editor-styles-wrapper [data-sd-locked]::before {
+	content: "Element wymagany przez zasady promocji projektu — nie usuwaj.";
+	display: block;
+	margin-bottom: .5rem;
+	padding: .375rem .625rem;
+	background: #fcebdf;
+	border-left: 3px solid #9a3412;
+	font-size: 13px;
+	font-weight: 600;
+	color: #9a3412;
+}

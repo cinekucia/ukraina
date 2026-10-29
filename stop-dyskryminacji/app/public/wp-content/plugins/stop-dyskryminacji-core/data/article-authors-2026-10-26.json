@@ -1,0 +1,112 @@
+{
+  "articles": {
+    "A01": {
+      "before_sha256": "533be9c90ee87e0f6ad93a6ae0bb753d75369793a407893d96e170965e973f6f",
+      "asset": {
+        "filename": "A01_artykul_2026-10-23.pdf",
+        "mime": "application/pdf",
+        "sha256": "322310801f9f67b064df75a0f2539bb214d547d067de149f21197721c83525a3",
+        "bytes": 1465976
+      }
+    },
+    "A02": {
+      "before_sha256": "a69afab9af59b28d82471ddb1ed16d476c3bd4400de198cc546901c060df4325",
+      "asset": {
+        "filename": "A02_artykul_2026-10-23.pdf",
+        "mime": "application/pdf",
+        "sha256": "f5eba1e0fedeabc67220eb655c5515e6a5386f94bde25f2ee2d7eb16042f3d32",
+        "bytes": 1177873
+      }
+    },
+    "A03": {
+      "before_sha256": "32f218f4f6e876364c79c0d5a09f5d23ef04f2dc637fbb970a83c0a4b94f63e1",
+      "asset": {
+        "filename": "A03_artykul_2026-10-23.pdf",
+        "mime": "application/pdf",
+        "sha256": "4080d7ba271556d94953019264b2851be8d01ff1c544be2e1802889e8db88c3a",
+        "bytes": 1406538
+      }
+    },
+    "A04": {
+      "before_sha256": "abd8ab7f8fb7af1010bcba56dfcabd0fb11cd7c870256553caf110ba275dba5c",
+      "asset": {
+        "filename": "A04_artykul_2026-10-23.pdf",
+        "mime": "application/pdf",
+        "sha256": "887ba0238a03b2295b6d368de0707c59f58e8ada93d444c35e13c071c84f917c",
+        "bytes": 1445259
+      }
+    },
+    "A05": {
+      "before_sha256": "bfa6e60ede691a09b922efa01ea4ddba26da0a7a6e3a3d9fadce438180f05d64",
+      "asset": {
+        "filename": "A05_artykul_2026-10-23.pdf",
+        "mime": "application/pdf",
+        "sha256": "77270c54d35e7ed614b5429bb4b43c64243ba9b33fc75daa49c6b188b545a784",
+        "bytes": 1042633
+      }
+    },
+    "A06": {
+      "before_sha256": "3fe18e5e80688c83b9f88d0ae18432834f06c91b284a0af92976545938d67d3a",
+      "asset": {
+        "filename": "A06_artykul_2026-10-23.pdf",
+        "mime": "application/pdf",
+        "sha256": "cbe98c788436c296dab09f71567328c9a179082079397dca4be37ae800cc319e",
+        "bytes": 1363238
+      }
+    },
+    "A07": {
+      "before_sha256": "3c721e6c1281dd254a392aa7c9384bdc335375d12292ee9909c398028a906b6e",
+      "asset": {
+        "filename": "A07_artykul_2026-10-23.pdf",
+        "mime": "application/pdf",
+        "sha256": "9e3f1ec986e0b66b6e8295393330f393607793487a8f6b30cb41af16653ad1f2",
+        "bytes": 1400443
+      }
+    },
+    "A08": {
+      "before_sha256": "57ea771edd607dfcad131d981f5ae3d742530486cf5f8bf641591d17c20db7a9",
+      "asset": {
+        "filename": "A08_artykul_2026-10-23.pdf",
+        "mime": "application/pdf",
+        "sha256": "d4fd91ae388c0d98534ecf0016e7ff8977fd63364848e1190a9620ce0856ffe1",
+        "bytes": 1411839
+      }
+    },
+    "A09": {
+      "before_sha256": "16198382b560b2e12aac166d6579e0495ebc74610ebe18427914ee18b10f5b28",
+      "asset": {
+        "filename": "A09_artykul_2026-10-23.pdf",
+        "mime": "application/pdf",
+        "sha256": "ec5342c27f759bc26dd34d1a805623092dbc1ac5674b0c20a16743b6144e6aa2",
+        "bytes": 1108692
+      }
+    },
+    "A10": {
+      "before_sha256": "9a8993536353952c2baa840055db54b78b33e3bf1b15898b1f424d80b4a8ba63",
+      "asset": {
+        "filename": "A10_artykul_2026-10-23.pdf",
+        "mime": "application/pdf",
+        "sha256": "4a9a081ff2e963a34072826914671218d5d627f122af8ceb5a5a8ff3825dae8d",
+        "bytes": 1113786
+      }
+    },
+    "A11": {
+      "before_sha256": "5bace72544ce73aebcdb8c5b131a8d714f90473fe10be3b3ab0d666379a3db42",
+      "asset": {
+        "filename": "A11_artykul_2026-10-23.pdf",
+        "mime": "application/pdf",
+        "sha256": "5c34b13e651ca936f8d0908c285ed95e9614fca1b3f8003ef9ac41d07f3589b1",
+        "bytes": 1147952
+      }
+    },
+    "A12": {
+      "before_sha256": "fbd8dd1c24c9945e0ff7043a5cd9a35a9fc196707e99bb3549c05825d071c05f",
+      "asset": {
+        "filename": "A12_artykul_2026-10-23.pdf",
+        "mime": "application/pdf",
+        "sha256": "402955fada31bcd02f32890e3937a16f950d08203752367005ecd92d8baa4c60",
+        "bytes": 1105251
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+; PHP dla skryptów narzędziowych uruchamianych na środowisku Local (nie na produkcji).
+; Skopiuj jako tools/php-local.ini i uzupełnij ścieżkę do PHP z aplikacji Local.
+; Użycie: <php z Local>/php.exe -c tools/php-local.ini <skrypt>
+extension_dir = "C:\Users\<użytkownik>\AppData\Roaming\Local\lightning-services\php-<wersja>\bin\win64\ext"
+extension=mysqli
+extension=openssl
+extension=sodium
+extension=mbstring
+extension=gd
+extension=curl
+extension=exif
+extension=fileinfo
+extension=intl
+extension=zip
+; Port MySQL z aplikacji Local (zmienia się po restarcie). export_migration.php odczytuje go sam.
+mysqli.default_port = 10006
+memory_limit = 1024M
+max_execution_time = 0
+display_errors = On
+error_reporting = E_ALL
+date.timezone = Europe/Warsaw

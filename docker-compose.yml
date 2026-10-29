@@ -1,0 +1,55 @@
+# Środowisko deweloperskie platformy „STOP DYSKRYMINACJI".
+#
+# UWAGA NA ŚCIEŻKI MONTOWANIA
+# Kod źródłowy motywu i wtyczki mieszka wewnątrz instalacji WordPressa
+# w katalogu Local (app/public/wp-content/...). Wcześniejsza wersja tego pliku
+# montowała katalogi ./stop-dyskryminacji i ./stop-dyskryminacji-core z korzenia
+# repozytorium — to są nieaktualne kopie z etapu prototypu, zawierające m.in.
+# klucz szyfrowania wpisany na sztywno w kodzie. Nie montuj ich.
+
+services:
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  wordpress:
+    image: wordpress:6.8-php8.3-apache
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
+      # Klucz szyfrowania zgłoszeń. Wartość poniżej jest WYŁĄCZNIE dla środowiska
+      # deweloperskiego. Na produkcji wygeneruj własny w panelu
+      # (Ustawienia → STOP DYSKRYMINACJI) i trzymaj go w menedżerze haseł.
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'SDC_ENCRYPTION_KEY', 'ZGV2LWtleS1kb2NrZXItb25seS0zMi1ieXRlcy14eXo=' );
+        define( 'WP_ENVIRONMENT_TYPE', 'development' );
+    volumes:
+      - wp_data:/var/www/html
+      # Motyw i wtyczka — bieżący kod źródłowy projektu.
+      - ./stop-dyskryminacji/app/public/wp-content/themes/stop-dyskryminacji:/var/www/html/wp-content/themes/stop-dyskryminacji
+      - ./stop-dyskryminacji/app/public/wp-content/plugins/stop-dyskryminacji-core:/var/www/html/wp-content/plugins/stop-dyskryminacji-core
+
+volumes:
+  db_data:
+  wp_data:

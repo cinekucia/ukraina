@@ -1,0 +1,95 @@
+# ─── Rdzeń WordPressa ────────────────────────────────────────────────────────
+# Do repozytorium trafia WYŁĄCZNIE kod autorski: motyw i wtyczka projektu.
+# Rdzeń aktualizuje WordPress, a wersjonowanie go tylko psuje aktualizacje.
+stop-dyskryminacji/app/public/*
+!stop-dyskryminacji/app/public/wp-content/
+stop-dyskryminacji/app/public/wp-content/*
+!stop-dyskryminacji/app/public/wp-content/themes/
+!stop-dyskryminacji/app/public/wp-content/plugins/
+stop-dyskryminacji/app/public/wp-content/themes/*
+!stop-dyskryminacji/app/public/wp-content/themes/stop-dyskryminacji/
+stop-dyskryminacji/app/public/wp-content/plugins/*
+!stop-dyskryminacji/app/public/wp-content/plugins/stop-dyskryminacji-core/
+
+# ─── Nigdy do repozytorium ───────────────────────────────────────────────────
+# wp-config.php zawiera SDC_ENCRYPTION_KEY. Klucz w repozytorium oznacza, że
+# każdy z dostępem do kodu może odszyfrować zgłoszenia z danymi z art. 9 RODO.
+wp-config.php
+.env
+*.sql
+*.sql.gz
+
+# Biblioteka mediów to dane produkcyjne, nie kod. Wersjonowanie jej grozi
+# nadpisaniem plików wgranych przez redaktora.
+**/wp-content/uploads/
+**/wp-content/upgrade/
+**/wp-content/cache/
+**/wp-content/mu-plugins/
+
+# ─── Środowisko Local ────────────────────────────────────────────────────────
+stop-dyskryminacji/app/sql/
+stop-dyskryminacji/conf/
+stop-dyskryminacji/logs/
+stop-dyskryminacji/app/.envrc
+**/*.log
+
+# ─── Wyniki pracy, nie źródła ────────────────────────────────────────────────
+dist/
+prezentacja/
+__pycache__/
+
+# ─── System ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Nieaktualne rusztowanie z etapu prototypu ───────────────────────────────
+# Kopia motywu leżąca w KORZENIU katalogu Local (a nie w wp-content/themes).
+# Nie jest to lokalizacja motywu WordPressa — to pozostałość po pierwszym
+# podejściu, z nieistniejącą już paletą kolorów i starą kategorią wzorców.
+# Wersja obowiązująca: stop-dyskryminacji/app/public/wp-content/themes/...
+# Ukośnik wiodący jest tu konieczny. Wzorzec bez niego git dopasowuje na
+# KAŻDYM poziomie drzewa, więc „stop-dyskryminacji-core/" wykluczyłby także
+# wp-content/plugins/stop-dyskryminacji-core/ — czyli właściwą wtyczkę.
+/stop-dyskryminacji/*.php
+/stop-dyskryminacji/*.json
+/stop-dyskryminacji/*.css
+/stop-dyskryminacji/parts/
+/stop-dyskryminacji/patterns/
+/stop-dyskryminacji/templates/
+/stop-dyskryminacji/assets/
+/stop-dyskryminacji-core/
+
+# ─── Dokumenty poufne — NIGDY do repozytorium publicznego ────────────────────
+# Umowa zlecenia wraz z załącznikami zawiera dane osobowe Zleceniobiorcy,
+# umowę powierzenia przetwarzania danych oraz kwoty wynagrodzenia.
+# Ujawnienie ich narusza § 8 umowy (poufność) i wystawia dane osobowe.
+/wymogi_formalne/
+/*.docx
+
+# Nieaktualne archiwum wtyczki z etapu prototypu (zawiera klucz w kodzie).
+/stop-dyskryminacji-core.zip
+
+# ─── Testy dostępności ───────────────────────────────────────────────────────
+# Biblioteka axe-core pobierana lokalnie przed testem (tests/wcag/README.md),
+# wyniki przebiegów generowane przy każdym uruchomieniu.
+tests/wcag/axe.min.js
+tests/wcag/results/
+
+# Lokalna konfiguracja PHP ze ścieżkami tego komputera (wzór: tools/php-local.ini.example).
+tools/php-local.ini
+
+# Pliki publikacji do wgrania w panelu (wersje robocze) — nie trafiają do publicznego repozytorium
+/materialy_do_strony_do_sciagniecia/
+
+# ─── Dokumenty robocze o umowie i budżecie — poza publicznym repozytorium ────
+# Opisują warunki umowy i budżet zadania (§ 8 umowy — poufność) albo są
+# nieaktualną samooceną z września 2026 r. Zostają tylko na dysku.
+/STATUS-WYMAGAN.md
+/AUDYT-WCAG-ZAMOWIENIE.md
+/RAPORT-WCAG-2.1-AA.md
+/BENCHMARK_PORTALE_ANTYDYSKRYMINACYJNE*.xlsx
+/0[0-6]_*.csv
+
+# Wynik kontroli gotowości serwisu, generowany przy każdym uruchomieniu.
+tests/launch/wynik.json

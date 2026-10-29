@@ -1,0 +1,46 @@
+<!-- wp:group {"tagName":"header","metadata":{"name":"Nagłówek serwisu"},"className":"sd-masthead","layout":{"type":"default"}} -->
+<header class="wp-block-group sd-masthead">
+	<!-- wp:template-part {"slug":"eu-bar","tagName":"div","area":"header"} /-->
+	<!-- wp:template-part {"slug":"header","tagName":"div","area":"header"} /-->
+</header>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"main","metadata":{"name":"Treść główna"},"anchor":"sd-main","className":"sd-section","layout":{"type":"constrained"}} -->
+<main id="sd-main" class="wp-block-group sd-section">
+
+	<!-- wp:query-title {"type":"search","level":1} /-->
+
+	<!-- wp:search {"label":"Szukaj w serwisie","showLabel":false,"placeholder":"Czego szukasz?","buttonText":"Szukaj","buttonPosition":"button-outside"} /-->
+
+	<!-- wp:query {"queryId":30,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"relevance","inherit":true},"layout":{"type":"default"}} -->
+	<div class="wp-block-query">
+		<!-- wp:post-template {"className":"sd-grid","layout":{"type":"default"}} -->
+			<!-- wp:group {"className":"sd-card","layout":{"type":"default"}} -->
+			<div class="wp-block-group sd-card">
+				<!-- wp:post-title {"level":2,"isLink":true} /-->
+				<!-- wp:post-excerpt {"excerptLength":30,"showMoreOnNewLine":false} /-->
+				<!-- wp:group {"className":"sd-card__meta","layout":{"type":"flex","flexWrap":"wrap"}} -->
+				<div class="wp-block-group sd-card__meta">
+					<!-- wp:post-date {"format":"j F Y"} /-->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
+
+		<!-- wp:query-pagination {"paginationArrow":"arrow","layout":{"type":"flex","justifyContent":"space-between"},"style":{"spacing":{"margin":{"top":"3rem"}}}} -->
+			<!-- wp:query-pagination-previous {"label":"Poprzednia strona"} /-->
+			<!-- wp:query-pagination-numbers /-->
+			<!-- wp:query-pagination-next {"label":"Następna strona"} /-->
+		<!-- /wp:query-pagination -->
+
+		<!-- wp:query-no-results -->
+			<!-- wp:paragraph --><p>Nic nie znaleźliśmy. Spróbuj krótszego hasła albo <a href="/potrzebuje-pomocy/">opisz nam swoją sytuację</a> — odpowiemy indywidualnie.</p><!-- /wp:paragraph -->
+		<!-- /wp:query-no-results -->
+	</div>
+	<!-- /wp:query -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"div","area":"footer"} /-->
